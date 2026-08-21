@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Food Products - Order App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --bg-tertiary: #e5e7eb;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #d1d5db;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .header .logo {
+            font-size: 32px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Form Sections */
+        .form-section {
+            background-color: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--danger-color);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: var(--bg-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Dropdown for stores and products */
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .dropdown-list.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--bg-tertiary);
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .dropdown-item-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background-color: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .order-summary h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .order-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-code {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .order-item-details {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .order-item-qty {
+            width: 60px;
+            padding: 0.4rem;
+            font-size: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-primary);
+        }
+
+        .order-item-total {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .order-item-remove {
+            padding: 0.4rem 0.6rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .order-item-remove:hover {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+        .order-summary-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .order-total-items {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .order-total-amount {
+            text-align: right;
+        }
+
+        .order-total-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .order-total-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-direction: column;
+        }
+
+        button {
+            padding: 0.85rem 1rem;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .btn-primary:disabled,
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .empty-state-icon {
+            font-size: 40px;
+            margin-bottom: 0.75rem;
+        }
+
+        .empty-state-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .footer-info {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            color: #166534;
+            border-left: 4px solid var(--success-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .order-item {
+                flex-wrap: wrap;
+            }
+
+            .order-item-total,
+            .order-item-remove {
+                order: 3;
+                flex-basis: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .order-summary-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .order-total-amount {
+                width: 100%;
+                text-align: left;
+            }
+
+            button {
+                padding: 0.75rem;
+                font-size: 14px;
+            }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--bg-tertiary);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-count {
+            margin-left: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">📦</div>
+            <h1>Daily Food Products</h1>
+            <p>Order Management System</p>
+        </div>
+
+        <!-- Alert Messages -->
+        <div id="alertBox" class="alert"></div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <!-- Sales Agent Name -->
+            <div class="form-group">
+                <label for="salesAgent" class="required">Sales Agent Name</label>
+                <input 
+                    type="text" 
+                    id="salesAgent" 
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                >
+            </div>
+
+            <!-- Store Selection -->
+            <div class="form-group">
+                <label for="storeName" class="required">Store Name</label>
+                <div class="dropdown-container">
+                    <input 
+                        type="text" 
+                        id="storeName" 
+                        placeholder="Type or select store name"
+                        autocomplete="off"
+                    >
+                    <div id="storeDropdown" class="dropdown-list"></div>
+                </div>
+            </div>
+
+            <!-- Product Selection -->
+            <div class="form-group">
+                <label for="productSearch">Add Products (Search by name or code)</label>
+                <div class="dropdown-container">
+                    <input 
+                        type="text" 
+                        id="productSearch" 
+                        placeholder="Search product name or code (e.g., P001, Rice, Chilli)"
+                        autocomplete="off"
+                    >
+                    <div id="productDropdown" class="dropdown-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div id="orderSummaryContainer"></div>
+
+        <!-- Action Buttons -->
+        <div id="buttonsContainer"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-info">
+                <strong>Daily Food Products SDN BHD</strong>
+            </div>
+            <div class="footer-info">
+                📞 014 374 2524 / 03 4051 2524
+            </div>
+            <div class="footer-info">
+                📧 dailyfoods.my@gmail.com
+            </div>
+            <div class="footer-info">
+                🌐 www.daily.holdings
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All Products Data
+        const productsData = [
+            // BULKPACK Products
+            { code: 'P001', name: 'FAQ URAD GOTA', size: '15KG BAG', price: 78.00, category: 'BULKPACK' },
+            { code: 'P002', name: 'SSQ URAD DHAL', size: '25KG BAG', price: 200.00, category: 'BULKPACK' },
+            { code: 'P003', name: 'SQ URAD DAL', size: '15KG BAG', price: 105.00, category: 'BULKPACK' },
+            { code: 'P004', name: 'MUNG DHAL', size: '5KG PKT', price: 35.00, category: 'BULKPACK' },
+            { code: 'P005', name: 'MUNG DHAL', size: '15KG BAG', price: 75.00, category: 'BULKPACK' },
+            { code: 'P006', name: 'EURO DHAL / AUSTRALIA DHAL', size: '10KG BAG', price: 24.00, category: 'BULKPACK' },
+            { code: 'P007', name: 'MASOOR DAL', size: '5KG PKT', price: 25.00, category: 'BULKPACK' },
+            { code: 'P008', name: 'MASOOR DHAL', size: '15KG BAG', price: 55.00, category: 'BULKPACK' },
+            { code: 'P009', name: 'CHANA DALL / KADALAPARUPPU', size: '1KG PKT', price: 5.00, category: 'BULKPACK' },
+            { code: 'P010', name: 'CHANA DALL / KADALAPARUPPU', size: '5KG PKT', price: 25.00, category: 'BULKPACK' },
+            { code: 'P012', name: 'WHITE CHANA DAL', size: '5KG PKT', price: 37.50, category: 'BULKPACK' },
+            { code: 'P013', name: 'WHITE CHANA DAL', size: '15KG BAG', price: 95.00, category: 'BULKPACK' },
+            { code: 'P014', name: 'ATTA FLOUR', size: '1KG PKT', price: 5.00, category: 'BULKPACK' },
+            { code: 'P015', name: 'ATTA FLOUR', size: '5KG PKT', price: 17.50, category: 'BULKPACK' },
+            { code: 'P016', name: 'ATTA FLOUR', size: '20KG BAG', price: 55.00, category: 'BULKPACK' },
+            { code: 'P018', name: 'WHITE CHICKPEAS / KACANG KUDA PUTIH', size: '5KG PKT', price: 25.00, category: 'BULKPACK' },
+            { code: 'P019', name: 'WHITE CHICKPEAS / KACANG KUDA PUTIH', size: '25KG BAG', price: 120.00, category: 'BULKPACK' },
+            { code: 'P020', name: 'BLACK CHICK PEAS', size: '5KG PKT', price: 20.00, category: 'BULKPACK' },
+            { code: 'P021', name: 'BLACK CHICK PEAS', size: '25KG BAG', price: 75.00, category: 'BULKPACK' },
+            { code: 'P022', name: 'BLACK URID CHIKKI', size: '15KG BAG', price: 70.00, category: 'BULKPACK' },
+            { code: 'P023', name: 'SUNFLOWER OIL', size: '5KG X4 CTN', price: 158.00, category: 'BULKPACK' },
+            { code: 'P024', name: 'SUNFLOWER OIL', size: '1LTR X 12 CTN', price: 100.00, category: 'BULKPACK' },
+            { code: 'P025', name: 'SUNFLOWER OIL', size: '2LTR X 6 CTN', price: 105.00, category: 'BULKPACK' },
+            { code: 'P026', name: 'VEGETABLE COOKING OIL', size: '17 X 1KG CTN', price: 42.50, category: 'BULKPACK' },
+            { code: 'P027', name: 'VEGETABLE COOKING OIL', size: '1KG X 12', price: 78.00, category: 'BULKPACK' },
+            { code: 'P028', name: 'VEGETABLE COOKING OIL', size: '2KG X 6', price: 80.00, category: 'BULKPACK' },
+            { code: 'P029', name: 'VEGETABLE COOKING OIL', size: '5KG X 4', price: 120.00, category: 'BULKPACK' },
+            { code: 'P030', name: 'VEGETABLE COOKING OIL', size: '8LTR JERRY CAN', price: 45.00, category: 'BULKPACK' },
+            { code: 'P031', name: 'VEGETABLE COOKING OIL', size: '17KG JERRY CAN', price: 100.00, category: 'BULKPACK' },
+            { code: 'P032', name: 'VANASPATI / VEGETABLE GHEE', size: '16KG TIN', price: 125.00, category: 'BULKPACK' },
+            { code: 'P033', name: 'EHSAN BLENDED GHEE', size: '800G TIN', price: 21.00, category: 'BULKPACK' },
+            { code: 'P034', name: 'EHSAN BLENDED GHEE', size: '800G X 12 CTN', price: 228.00, category: 'BULKPACK' },
+            { code: 'P035', name: 'AGRO PURE GHEE', size: '10LTR', price: 330.00, category: 'BULKPACK' },
+            { code: 'P036', name: 'GHEE', size: '16 X 1LTR CTN', price: 672.00, category: 'BULKPACK' },
+            { code: 'P037', name: 'RKG GHEE', size: '1LTR TIN', price: 45.00, category: 'BULKPACK' },
+            { code: 'P038', name: 'POTATO / UBI PAK', size: '5.8+KG PACK', price: 10.50, category: 'BULKPACK' },
+            { code: 'P039', name: 'POTATO / UBI', size: '8.8+KG PACK', price: 11.50, category: 'BULKPACK' },
+            { code: 'P040', name: 'ONION INDIA', size: '5KG++ PACK', price: 5.50, category: 'BULKPACK' },
+            { code: 'P041', name: 'ONION INDIA / BAWANG BESAR INDIA', size: '8.8+KG', price: 12.00, category: 'BULKPACK' },
+            { code: 'P042', name: 'ONION INDIA BIG', size: '8KG BAG', price: 11.50, category: 'BULKPACK' },
+            { code: 'P043', name: 'FREID ONION / BAWANG GORENG', size: '500G PACK', price: 6.00, category: 'BULKPACK' },
+            { code: 'P044', name: 'DAILY PAPPADAM', size: '100G PKT', price: 1.50, category: 'BULKPACK' },
+            { code: 'P045', name: 'BUSH COLOUR ORANGE RED', size: '100G X 120 TIN', price: 432.00, category: 'BULKPACK' },
+            { code: 'P046', name: 'WHITE RICE NASI KANDAR', size: '50KG BAG', price: 160.00, category: 'BULKPACK' },
+            { code: 'P047', name: 'FRAGRANT RICE', size: '24.5+ KG BAG', price: 100.00, category: 'BULKPACK' },
+            { code: 'P048', name: 'INDIAN STEAM PUSA 1121 BASMATHI LONG GRAIN', size: '26KG', price: 225.00, category: 'BULKPACK' },
+            { code: 'P049', name: 'HARYANA SIGNATURE', size: '26KG', price: 225.00, category: 'BULKPACK' },
+            { code: 'P050', name: 'UNI BRIYANI', size: '30KG', price: 260.00, category: 'BULKPACK' },
+            { code: 'P051', name: 'BRU INSTANT COFFEE', size: '500G X 16 CTN', price: 542.00, category: 'BULKPACK' },
+            { code: 'P052', name: 'NESCAFE CLASIC', size: '500G PACK', price: 53.00, category: 'BULKPACK' },
+            { code: 'P053', name: 'NESCAFE CLASIC', size: '12 X 500G PACK', price: 595.00, category: 'BULKPACK' },
+            { code: 'P054', name: 'MILO ACTIVE', size: '3.2KG PACK', price: 60.00, category: 'BULKPACK' },
+            { code: 'P055', name: 'MILO ACTIVE', size: '6 X 3.2KG', price: 360.00, category: 'BULKPACK' },
+            { code: 'P056', name: 'TEA OOTY POWDER', size: '10KG BOX', price: 140.00, category: 'BULKPACK' },
+            { code: 'P057', name: 'MARJERIN', size: '1KG X 12', price: 84.00, category: 'BULKPACK' },
+            { code: 'P058', name: 'DRIED CHILLI / CILI KERING', size: '3.5KG BAG', price: 50.00, category: 'BULKPACK' },
+            { code: 'P059', name: 'ESHAN BIHUN', size: '3KG PKT', price: 15.90, category: 'BULKPACK' },
+            { code: 'P060', name: 'KARA SANTAN KOTAK', size: '1000ML X12', price: 178.00, category: 'BULKPACK' },
+            { code: 'P061', name: 'AJINOMOTO', size: '1KG PACK', price: 10.00, category: 'BULKPACK' },
+            { code: 'P062', name: 'GARAM HALUS PUTIH', size: '5KG PACK', price: 7.00, category: 'BULKPACK' },
+            { code: 'P063', name: 'ASAM JAWA PENGUIN', size: '5KG PACK', price: 28.00, category: 'BULKPACK' },
+            { code: 'P064', name: 'CASHEW NUTS LP 4/4', size: '11.34KG', price: 361.00, category: 'BULKPACK' },
+            { code: 'P065', name: 'CASHEW WS 2/2 SPILIT', size: '11.34 BAGS', price: 380.00, category: 'BULKPACK' },
+            { code: 'P066', name: 'PALM SUGAR / GULA MELAKA', size: '10KG CTN', price: 50.00, category: 'BULKPACK' },
+            { code: 'P067', name: 'ESHAN TEPUNG GANDUNG', size: '850G X 12 CTN', price: 30.00, category: 'BULKPACK' },
+            { code: 'P068', name: 'ESHAN LYCHEE TIN', size: '567G X 24 CTN', price: 120.00, category: 'BULKPACK' },
+            { code: 'P069', name: 'ESHAN BIHUN', size: '400G X 10 CTN', price: 32.00, category: 'BULKPACK' },
+            { code: 'P070', name: 'ESHAB SARDINE', size: '425G X 24 CTN', price: 150.00, category: 'BULKPACK' },
+            { code: 'P071', name: 'KALPASI BUNGA BATU', size: '500G PACK', price: 19.90, category: 'BULKPACK' },
+            { code: 'P072', name: 'KALPASI BUNGA BATU', size: '5KG BAG', price: 180.00, category: 'BULKPACK' },
+            { code: 'P073', name: 'MAGGI 2-MINN CURRY', size: '12(5X79G)', price: 58.00, category: 'BULKPACK' },
+
+            // SPICES Products
+            { code: 'S001', name: 'GREEN CARDAMOM', size: '1KG PKT', price: 150.00, category: 'SPICES' },
+            { code: 'S002', name: 'GREEN CARDAMOM', size: '25KG BAG', price: 3750.00, category: 'SPICES' },
+            { code: 'S003', name: 'GRAM DHAL / POTTUKADALAI', size: '1KG PKT', price: 6.50, category: 'SPICES' },
+            { code: 'S004', name: 'GRAM DHAL / POTTUKADALAI', size: '15KG BAG', price: 79.50, category: 'SPICES' },
+            { code: 'S005', name: 'DRIED CHILLI / CILI KERING', size: '1KG PKT', price: 16.00, category: 'SPICES' },
+            { code: 'S006', name: 'DRIED CHILLI / CILI KERING', size: '10KG BAG', price: 120.00, category: 'SPICES' },
+            { code: 'S007', name: 'BLACK PEPPER SEED', size: '1KG PKT', price: 45.00, category: 'SPICES' },
+            { code: 'S008', name: 'BLACK PEPPER SEED', size: '25KG BAG', price: 825.00, category: 'SPICES' },
+            { code: 'S009', name: 'FENUGREEK SEED / BIJI HALBA', size: '1KG PKT', price: 8.00, category: 'SPICES' },
+            { code: 'S010', name: 'FENUGREEK SEED / BIJI HALBA', size: '25KG BAG', price: 110.00, category: 'SPICES' },
+            { code: 'S011', name: 'CUMIN SEED / JINTAN PUTIH', size: '1KG PKT', price: 39.00, category: 'SPICES' },
+            { code: 'S012', name: 'CUMIN SEED / JINTAN PUTIH', size: '25KG BAG', price: 300.00, category: 'SPICES' },
+            { code: 'S013', name: 'FENNEL SEED / JINTAN MANIS', size: '1KG PKT', price: 10.00, category: 'SPICES' },
+            { code: 'S014', name: 'FENNEL SEED / JINTAN MANIS', size: '25KG BAG', price: 150.00, category: 'SPICES' },
+            { code: 'S015', name: 'CORIANDER SEED / KETUMBAR', size: '1KG PKT', price: 10.00, category: 'SPICES' },
+            { code: 'S016', name: 'CORIANDER SEED / KETUMBAR', size: '25KG BAG', price: 145.00, category: 'SPICES' },
+            { code: 'S017', name: 'CHILLI FLAKES', size: '1KG PKT', price: 24.00, category: 'SPICES' },
+            { code: 'S018', name: 'MUSTARD SEED / BIJI SAWI', size: '1KG PKT', price: 6.00, category: 'SPICES' },
+            { code: 'S019', name: 'CINNAMON / KAYU MANIS', size: '1KG PKT', price: 36.00, category: 'SPICES' },
+            { code: 'S020', name: 'CLOVE / BUNGA CENGKIH', size: '1KG PKT', price: 75.40, category: 'SPICES' },
+            { code: 'S021', name: 'STAR ANISE / BUNGA LAWANG', size: '1KG PKT', price: 28.00, category: 'SPICES' },
+            { code: 'S022', name: 'BLACK CHICK PEAS', size: '5KG BAG', price: 25.00, category: 'SPICES' },
+            { code: 'S023', name: 'GROUND NUT / KACANG TANAH', size: '5KG PKT', price: 35.00, category: 'SPICES' },
+            { code: 'S024', name: 'GROUND NUT / KACANG TANAH', size: '25KG BAG', price: 155.00, category: 'SPICES' },
+            { code: 'S025', name: 'WHITE PEPPER SEED', size: '1KG PKT', price: 53.00, category: 'SPICES' },
+            { code: 'S026', name: 'KACANG HIJAU DAL', size: '1KG PKT', price: 6.00, category: 'SPICES' },
+            { code: 'S027', name: 'GREEN CARDAMOM', size: '500G PACK', price: 80.00, category: 'SPICES' },
+            { code: 'S028', name: 'GREEN CARDAMOM', size: '1KG X 10 PKT BOX', price: 1450.00, category: 'SPICES' },
+            { code: 'S029', name: 'CHILLI POWDER', size: '125G', price: 3.10, category: 'SPICES' },
+            { code: 'S030', name: 'CHILLI POWDER', size: '250G', price: 6.10, category: 'SPICES' },
+            { code: 'S031', name: 'CHILLI POWDER', size: '1KG', price: 24.40, category: 'SPICES' },
+            { code: 'S032', name: 'FISH CURRY POWDER', size: '250G', price: 5.00, category: 'SPICES' },
+            { code: 'S033', name: 'FISH CURRY POWDER', size: '1KG', price: 19.80, category: 'SPICES' },
+            { code: 'S034', name: 'CUMIN POWDER', size: '250G', price: 11.50, category: 'SPICES' },
+            { code: 'S035', name: 'CUMIN POWDER', size: '1KG', price: 46.00, category: 'SPICES' },
+            { code: 'S036', name: 'FENNEL POWDER', size: '250G', price: 5.00, category: 'SPICES' },
+            { code: 'S037', name: 'FENNEL POWDER', size: '1KG', price: 19.80, category: 'SPICES' },
+            { code: 'S038', name: 'KAS-KAS MIX', size: '250G', price: 5.50, category: 'SPICES' },
+            { code: 'S039', name: 'KAS-KAS MIX', size: '1KG', price: 30.00, category: 'SPICES' },
+            { code: 'S040', name: 'BLACK PEPPER POWDER', size: '250G', price: 15.00, category: 'SPICES' },
+            { code: 'S041', name: 'BLACK PEPPER POWDER', size: '500G', price: 35.00, category: 'SPICES' },
+            { code: 'S042', name: 'TURMERIC POWDER', size: '125G', price: 2.50, category: 'SPICES' },
+            { code: 'S043', name: 'TURMERIC POWDER', size: '250G', price: 5.00, category: 'SPICES' },
+            { code: 'S044', name: 'TURMERIC POWDER', size: '1KG', price: 19.80, category: 'SPICES' },
+            { code: 'S045', name: 'TURMERIC PURE POWDER', size: '5KG', price: 77.50, category: 'SPICES' },
+            { code: 'S046', name: 'GARAM MASALA MIX', size: '70G', price: 4.50, category: 'SPICES' },
+            { code: 'S047', name: 'SAMBAR MIX', size: '250G', price: 5.90, category: 'SPICES' },
+            { code: 'S048', name: 'RASAM MIX POWDER', size: '125G', price: 2.80, category: 'SPICES' },
+            { code: 'S049', name: 'RAVA THOSAI MIX', size: '450G', price: 5.00, category: 'SPICES' },
+        ];
+
+        // Store list
+        const storeList = [
+            'ABC Store', 'XYZ Mart', 'Fresh Shop', 'Daily Store', 'Spice Palace',
+            'Mini Mart', 'Premium Stores', 'Local Market', 'City Mart', 'Grand Store'
+        ];
+
+        // State
+        let order = [];
+        let quantities = {};
+        let selectedStore = '';
+
+        // DOM Elements
+        const salesAgentInput = document.getElementById('salesAgent');
+        const storeNameInput = document.getElementById('storeName');
+        const productSearchInput = document.getElementById('productSearch');
+        const storeDropdown = document.getElementById('storeDropdown');
+        const productDropdown = document.getElementById('productDropdown');
+        const orderSummaryContainer = document.getElementById('orderSummaryContainer');
+        const buttonsContainer = document.getElementById('buttonsContainer');
+        const alertBox = document.getElementById('alertBox');
+
+        // Event Listeners
+        storeNameInput.addEventListener('input', handleStoreSearch);
+        storeNameInput.addEventListener('focus', () => handleStoreSearch(storeNameInput.value));
+        productSearchInput.addEventListener('input', handleProductSearch);
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown-container')) {
+                storeDropdown.classList.remove('show');
+                productDropdown.classList.remove('show');
+            }
+        });
+
+        // Store Search
+        function handleStoreSearch(value = storeNameInput.value) {
+            const search = value.toLowerCase();
+            const filtered = search.length > 0 
+                ? storeList.filter(store => store.toLowerCase().includes(search))
+                : storeList;
+
+            if (filtered.length > 0 && search.length > 0) {
+                storeDropdown.innerHTML = filtered.map(store => `
+                    <div class="dropdown-item" onclick="selectStore('${store}')">
+                        🏪 ${store}
+                    </div>
+                `).join('');
+                storeDropdown.classList.add('show');
+            } else {
+                storeDropdown.classList.remove('show');
+            }
+        }
+
+        function selectStore(store) {
+            selectedStore = store;
+            storeNameInput.value = store;
+            storeDropdown.classList.remove('show');
+        }
+
+        // Product Search
+        function handleProductSearch(value = productSearchInput.value) {
+            const search = value.toLowerCase();
+            if (search.length > 0) {
+                const filtered = productsData.filter(product =>
+                    product.name.toLowerCase().includes(search) ||
+                    product.code.toLowerCase().includes(search)
+                ).slice(0, 10);
+
+                if (filtered.length > 0) {
+                    productDropdown.innerHTML = filtered.map(product => `
+                        <div class="dropdown-item" onclick="addProduct('${product.code}')">
+                            <div class="dropdown-item-title">${product.code} - ${product.name}</div>
+                            <div class="dropdown-item-meta">${product.size} • RM${product.price.toFixed(2)}</div>
+                        </div>
+                    `).join('');
+                    productDropdown.classList.add('show');
+                } else {
+                    productDropdown.classList.remove('show');
+                }
+            } else {
+                productDropdown.classList.remove('show');
+            }
+        }
+
+        // Add Product
+        function addProduct(code) {
+            const product = productsData.find(p => p.code === code);
+            if (!product) return;
+
+            const existing = order.find(item => item.code === code);
+            if (existing) {
+                quantities[code] = (quantities[code] || 1) + 1;
+            } else {
+                order.push(product);
+                quantities[code] = 1;
+            }
+
+            productSearchInput.value = '';
+            productDropdown.classList.remove('show');
+            updateOrderSummary();
+        }
+
+        // Update Quantity
+        function updateQuantity(code, value) {
+            const qty = parseInt(value) || 0;
+            if (qty <= 0) {
+                removeProduct(code);
+            } else {
+                quantities[code] = qty;
+                updateOrderSummary();
+            }
+        }
+
+        // Remove Product
+        function removeProduct(code) {
+            order = order.filter(item => item.code !== code);
+            delete quantities[code];
+            updateOrderSummary();
+        }
+
+        // Update Order Summary
+        function updateOrderSummary() {
+            if (order.length === 0) {
+                orderSummaryContainer.innerHTML = '';
+                buttonsContainer.innerHTML = '';
+                return;
+            }
+
+            const totalAmount = order.reduce((sum, item) => {
+                const qty = quantities[item.code] || 1;
+                return sum + (item.price * qty);
+            }, 0);
+
+            let html = '<div class="order-summary"><h3>📋 Order Summary</h3><div class="order-items">';
+
+            order.forEach(item => {
+                const qty = quantities[item.code] || 1;
+                const lineTotal = (item.price * qty).toFixed(2);
+                html += `
+                    <div class="order-item">
+                        <div class="order-item-info">
+                            <div class="order-item-code">${item.code} - ${item.name}</div>
+                            <div class="order-item-details">${item.size} • RM${item.price.toFixed(2)} each</div>
+                        </div>
+                        <input type="number" class="order-item-qty" min="1" value="${qty}" onchange="updateQuantity('${item.code}', this.value)">
+                        <div class="order-item-total">RM${lineTotal}</div>
+                        <button class="order-item-remove" onclick="removeProduct('${item.code}')">✕</button>
+                    </div>
+                `;
+            });
+
+            html += `
+                </div>
+                <div class="order-summary-footer">
+                    <div class="order-total-items">Total Items: ${order.length}</div>
+                    <div class="order-total-amount">
+                        <div class="order-total-label">Total Amount:</div>
+                        <div class="order-total-value">RM${totalAmount.toFixed(2)}</div>
+                    </div>
+                </div>
+            </div>`;
+
+            orderSummaryContainer.innerHTML = html;
+
+            // Render buttons
+            buttonsContainer.innerHTML = `
+                <div class="button-group">
+                    <button class="btn-primary" onclick="sendToWhatsApp()">🔗 Send to WhatsApp Group</button>
+                    <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                </div>
+            `;
+        }
+
+        // Send to WhatsApp
+        function sendToWhatsApp() {
+            const salesAgent = salesAgentInput.value.trim();
+            const store = selectedStore || storeNameInput.value.trim();
+
+            if (!salesAgent) {
+                showAlert('Please enter Sales Agent name', 'error');
+                return;
+            }
+            if (!store) {
+                showAlert('Please select or enter Store name', 'error');
+                return;
+            }
+            if (order.length === 0) {
+                showAlert('Please add at least one product', 'error');
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-MY');
+            const timeStr = now.toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit' });
+
+            let text = `📦 *NEW ORDER - DAILY FOOD PRODUCTS*\n\n`;
+            text += `👤 *Sales Agent:* ${salesAgent}\n`;
+            text += `🏪 *Store Name:* ${store}\n`;
+            text += `📅 *Date:* ${dateStr}\n`;
+            text += `🕐 *Time:* ${timeStr}\n`;
+            text += `\n${'═'.repeat(50)}\n`;
+            text += `📋 *ORDER DETAILS:*\n${'═'.repeat(50)}\n\n`;
+
+            let totalAmount = 0;
+            order.forEach((item, index) => {
+                const qty = quantities[item.code] || 1;
+                const lineTotal = (item.price * qty).toFixed(2);
+                totalAmount += parseFloat(lineTotal);
+                text += `${index + 1}. *${item.code}* - ${item.name}\n`;
+                text += `   📏 Size: ${item.size}\n`;
+                text += `   🔢 Qty: ${qty}\n`;
+                text += `   💰 Price: RM${item.price.toFixed(2)} × ${qty} = *RM${lineTotal}*\n\n`;
+            });
+
+            text += `${'═'.repeat(50)}\n`;
+            text += `💵 *TOTAL AMOUNT: RM${totalAmount.toFixed(2)}*\n`;
+            text += `${'═'.repeat(50)}\n`;
+            text += `📱 Total Items: ${order.length}\n\n`;
+            text += `☎️ *Company Contact:*\n`;
+            text += `📞 014 374 2524 / 03 4051 2524\n`;
+            text += `📧 dailyfoods.my@gmail.com\n`;
+            text += `🌐 www.daily.holdings`;
+
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard() {
+            const salesAgent = salesAgentInput.value.trim();
+            const store = selectedStore || storeNameInput.value.trim();
+
+            if (!salesAgent) {
+                showAlert('Please enter Sales Agent name', 'error');
+                return;
+            }
+            if (!store) {
+                showAlert('Please select or enter Store name', 'error');
+                return;
+            }
+            if (order.length === 0) {
+                showAlert('Please add at least one product', 'error');
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-MY');
+            const timeStr = now.toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit' });
+
+            let text = `📦 NEW ORDER - DAILY FOOD PRODUCTS\n\n`;
+            text += `👤 Sales Agent: ${salesAgent}\n`;
+            text += `🏪 Store Name: ${store}\n`;
+            text += `📅 Date: ${dateStr}\n`;
+            text += `🕐 Time: ${timeStr}\n`;
+            text += `\n${'═'.repeat(50)}\n`;
+            text += `📋 ORDER DETAILS:\n${'═'.repeat(50)}\n\n`;
+
+            let totalAmount = 0;
+            order.forEach((item, index) => {
+                const qty = quantities[item.code] || 1;
+                const lineTotal = (item.price * qty).toFixed(2);
+                totalAmount += parseFloat(lineTotal);
+                text += `${index + 1}. ${item.code} - ${item.name}\n`;
+                text += `   Size: ${item.size}\n`;
+                text += `   Qty: ${qty} × RM${item.price.toFixed(2)} = RM${lineTotal}\n\n`;
+            });
+
+            text += `${'═'.repeat(50)}\n`;
+            text += `TOTAL AMOUNT: RM${totalAmount.toFixed(2)}\n`;
+            text += `${'═'.repeat(50)}\n`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                showAlert('✅ Order copied to clipboard!', 'success');
+            });
+        }
+
+        // Show Alert
+        function showAlert(message, type = 'error') {
+            alertBox.textContent = message;
+            alertBox.className = `alert show alert-${type}`;
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        updateOrderSummary();
+    </script>
+</body>
+</html>

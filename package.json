@@ -1,0 +1,85 @@
+{
+  "name": "daily-food-order-app",
+  "version": "1.0.0",
+  "description": "Order management system for Daily Food Products SDN BHD - A beautiful, fast, and easy-to-use order app with WhatsApp integration",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/daily-food-order-app"
+  },
+  "keywords": [
+    "order-management",
+    "daily-food",
+    "food-products",
+    "whatsapp-integration",
+    "inventory-system",
+    "sales-management"
+  ],
+  "author": "Daily Food Products SDN BHD",
+  "license": "MIT",
+  "homepage": "https://github.com/your-username/daily-food-order-app#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/daily-food-order-app/issues",
+    "email": "dailyfoods.my@gmail.com"
+  },
+  "scripts": {
+    "start": "open index.html",
+    "deploy": "git push origin main",
+    "test": "echo \"App is working if you can use it in browser\""
+  },
+  "files": [
+    "index.html",
+    "README.md",
+    "LICENSE",
+    ".gitignore"
+  ],
+  "engines": {
+    "browser": "*",
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "features": {
+    "products": 120,
+    "bulkpack": 73,
+    "spices": 49,
+    "mobile_responsive": true,
+    "whatsapp_integration": true,
+    "offline_support": true,
+    "dark_mode_ready": true
+  },
+  "contact": {
+    "company": "Daily Food Products SDN BHD",
+    "phone": "014 374 2524 / 03 4051 2524",
+    "email": "dailyfoods.my@gmail.com",
+    "website": "www.daily.holdings",
+    "address": "NO:18 Jalan Kovil Hilir, 51100 Sentul, Kuala Lumpur"
+  },
+  "browser_support": {
+    "chrome": "latest",
+    "firefox": "latest",
+    "safari": "latest",
+    "edge": "latest",
+    "mobile_browsers": "all modern"
+  },
+  "features_included": [
+    "Complete product catalog (120+ items)",
+    "Sales agent tracking",
+    "Store management with autocomplete",
+    "Smart product search (by name or code)",
+    "WhatsApp integration",
+    "Copy to clipboard feature",
+    "Professional order formatting",
+    "Mobile responsive design",
+    "Offline support",
+    "Zero dependencies",
+    "Lightning fast loading",
+    "Secure (HTTPS via GitHub Pages)"
+  ],
+  "roadmap": {
+    "version_1_0_0": "Core functionality complete",
+    "version_1_1_0": "Order history tracking",
+    "version_1_2_0": "Analytics dashboard",
+    "version_2_0_0": "Payment integration"
+  }
+}
