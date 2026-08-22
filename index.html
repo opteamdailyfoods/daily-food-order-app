@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Food Products - Order App</title>
+    <title>Daily Foods - Order App</title>
     <style>
         * {
             margin: 0;
@@ -12,28 +12,25 @@
         }
 
         :root {
-            /* Brand Color Palette */
-            --brand-primary: #0d5c3a;       /* Deep Emerald Green */
-            --brand-primary-light: #15803d; /* Vibrant Green */
-            --brand-primary-dark: #064e3b;  /* Dark Moss Green */
-            --brand-accent: #d97706;        /* Warm Gold/Amber */
-            --brand-accent-light: #f59e0b;  /* Bright Gold */
-            --brand-bg: #f4f7f5;            /* Soft Sage Slate Tint */
+            /* Daily Foods Brand Color Palette (Based on Logo) */
+            --brand-primary: #3a2012;       /* Warm Espresso Brown */
+            --brand-primary-light: #52301c; /* Lighter Brown */
+            --brand-accent: #f5b800;        /* Golden Sun Yellow */
+            --brand-accent-hover: #e0a700;  /* Slightly Darker Gold */
+            --brand-bg: #f9f6f0;            /* Soft Warm Cream */
             
-            --success-color: #10b981;
-            --danger-color: #dc2626;
+            --success-color: #2e7d32;
+            --danger-color: #c62828;
             --bg-white: #ffffff;
-            --bg-secondary: #f8fafc;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --border-color: #cbd5e1;
+            --bg-secondary: #f4efe6;
+            --text-primary: #21150c;
+            --text-secondary: #5c4a3e;
+            --border-color: #d8cebe;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--brand-bg);
-            background-image: radial-gradient(var(--border-color) 0.75px, transparent 0.75px);
-            background-size: 16px 16px;
             min-height: 100vh;
             padding: 1.5rem 1rem;
             color: var(--text-primary);
@@ -46,14 +43,14 @@
 
         /* Header & Logo Placement */
         .header {
-            background: linear-gradient(135deg, var(--brand-primary-dark) 0%, var(--brand-primary) 100%);
+            background: var(--brand-primary);
             color: white;
-            padding: 2.2rem 1.5rem;
+            padding: 1.5rem 1rem;
             border-radius: 16px;
             text-align: center;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px -5px rgba(13, 92, 58, 0.25);
-            border-bottom: 4px solid var(--brand-accent);
+            box-shadow: 0 8px 20px rgba(58, 32, 18, 0.2);
+            border-bottom: 5px solid var(--brand-accent);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -61,33 +58,31 @@
         }
 
         .logo-container {
-            background: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            margin-bottom: 1rem;
-            display: inline-flex;
+            margin-bottom: 0.5rem;
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .brand-logo {
-            max-width: 140px;
-            max-height: 70px;
+            max-width: 110px;
+            height: auto;
             object-fit: contain;
             display: block;
+            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.3));
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.25rem;
+            color: var(--brand-accent);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
         }
 
         .header p {
-            font-size: 14px;
-            color: #e2e8f0;
+            font-size: 13px;
+            color: #f3e9dc;
             font-weight: 500;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -104,13 +99,13 @@
             background: var(--bg-white);
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(58, 32, 18, 0.08);
+            border: 1px solid var(--border-color);
         }
 
         .form-section h2, .order-section h2 {
             margin-bottom: 1.25rem;
-            color: var(--brand-primary-dark);
+            color: var(--brand-primary);
             font-size: 20px;
             font-weight: 700;
             display: flex;
@@ -150,6 +145,7 @@
             font-size: 14px;
             transition: all 0.2s ease;
             background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
         input[type="text"]:focus,
@@ -157,7 +153,7 @@
             outline: none;
             border-color: var(--brand-primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(13, 92, 58, 0.12);
+            box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.3);
         }
 
         .autocomplete-container {
@@ -172,11 +168,11 @@
             background: white;
             border: 1.5px solid var(--brand-primary);
             border-radius: 10px;
-            max-height: 220px;
+            max-height: 240px;
             overflow-y: auto;
             z-index: 100;
             display: none;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         .autocomplete-list.show {
@@ -195,13 +191,18 @@
         }
 
         .autocomplete-item:hover {
-            background: #f0fdf4;
+            background: #fef7e6;
         }
 
         .autocomplete-item-code {
             font-weight: 700;
             color: var(--brand-primary);
-            font-size: 13px;
+            font-size: 12px;
+            background: #fdf2d6;
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 2px;
         }
 
         .autocomplete-item-name {
@@ -210,32 +211,27 @@
             font-size: 14px;
         }
 
-        .autocomplete-item-meta {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
         button {
             width: 100%;
             padding: 0.85rem;
             border: none;
             border-radius: 10px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .btn-add {
             background: var(--brand-accent);
-            color: white;
+            color: var(--brand-primary);
             margin-top: 0.5rem;
         }
 
         .btn-add:hover {
-            background: var(--brand-accent-light);
+            background: var(--brand-accent-hover);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+            box-shadow: 0 4px 12px rgba(245, 184, 0, 0.35);
         }
 
         .order-section {
@@ -258,9 +254,9 @@
             padding: 1rem;
             border-radius: 10px;
             border-left: 4px solid var(--brand-primary);
-            border-top: 1px solid #f1f5f9;
-            border-right: 1px solid #f1f5f9;
-            border-bottom: 1px solid #f1f5f9;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .order-item-header {
@@ -273,13 +269,18 @@
         .order-item-code {
             font-weight: 700;
             color: var(--brand-primary);
-            font-size: 13px;
+            font-size: 12px;
+            background: #fdf2d6;
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .order-item-name {
             color: var(--text-primary);
             font-weight: 600;
             font-size: 14px;
+            margin-top: 2px;
         }
 
         .order-item-remove {
@@ -298,12 +299,6 @@
             color: white;
         }
 
-        .order-item-details {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
         .order-footer {
             padding-top: 1.25rem;
             border-top: 2px dashed var(--border-color);
@@ -314,7 +309,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--brand-primary-dark);
+            background: var(--brand-primary);
             color: white;
             padding: 1rem 1.25rem;
             border-radius: 10px;
@@ -330,7 +325,7 @@
         .order-grand-total-value {
             font-size: 22px;
             font-weight: 700;
-            color: var(--brand-accent-light);
+            color: var(--brand-accent);
         }
 
         .action-buttons {
@@ -345,7 +340,7 @@
         }
 
         .btn-primary:hover {
-            background: var(--brand-primary-dark);
+            background: var(--brand-primary-light);
         }
 
         .btn-secondary {
@@ -355,7 +350,7 @@
         }
 
         .btn-secondary:hover {
-            background: #e2e8f0;
+            background: #ebdcc9;
         }
 
         .empty-state {
@@ -376,12 +371,12 @@
             text-align: center;
             font-size: 13px;
             color: var(--text-secondary);
-            box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 15px -2px rgba(58, 32, 18, 0.08);
+            border: 1px solid var(--border-color);
         }
 
         .footer-title {
-            color: var(--brand-primary-dark);
+            color: var(--brand-primary);
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 0.25rem;
@@ -389,7 +384,7 @@
 
         .badge {
             background: var(--brand-accent);
-            color: white;
+            color: var(--brand-primary);
             padding: 0.2rem 0.6rem;
             border-radius: 12px;
             font-size: 12px;
@@ -397,13 +392,13 @@
         }
 
         .info-box {
-            background: #f0fdf4;
-            border-left: 4px solid var(--brand-primary);
+            background: #fdf7e7;
+            border-left: 4px solid var(--brand-accent);
             padding: 0.85rem;
             border-radius: 8px;
             margin-bottom: 1.25rem;
             font-size: 13px;
-            color: var(--brand-primary-dark);
+            color: var(--brand-primary);
         }
 
         @media (max-width: 900px) {
@@ -419,12 +414,12 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header with Logo -->
+        <!-- Header Top Center Logo Placement -->
         <div class="header">
             <div class="logo-container">
-                <!-- Replace 'logo.png' with your actual logo URL/path -->
-                <img src="logo.png" alt="Daily Food Products Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span style="display:none; font-size:32px;">🥬</span>
+                <!-- Replace logo.png with your image file path -->
+                <img src="logo.png" alt="Daily Foods Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; font-size: 28px; font-weight: bold; color: var(--brand-accent);">☀️ DAILY</div>
             </div>
             <h1>Daily Food Products</h1>
             <p>Order Management System</p>
@@ -435,7 +430,7 @@
                 <h2>📝 Add Order Item</h2>
 
                 <div class="info-box">
-                    💡 Select agent, store, location, add products, and send directly to WhatsApp.
+                    💡 Select Agent & Store, type product name or code (e.g., <b>S011</b>, <b>P001</b>, <b>Cumin</b>), set quantity, and generate WhatsApp order.
                 </div>
 
                 <div class="form-group">
@@ -475,12 +470,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="required">Search Product</label>
+                    <label class="required">Search Product (Code or Name)</label>
                     <div class="autocomplete-container">
                         <input 
                             type="text" 
                             id="productSearch" 
-                            placeholder="Type product name or code (P001, Rice)"
+                            placeholder="Type product name or code (e.g. S011, P001, DHAL)"
                             autocomplete="off"
                         >
                         <div id="autocompleteList" class="autocomplete-list"></div>
@@ -492,7 +487,7 @@
                     <input type="number" id="quantity" value="1" min="1" placeholder="Enter quantity">
                 </div>
 
-                <button class="btn-add" onclick="addProductToOrder()">➕ Add Product</button>
+                <button class="btn-add" onclick="addProductToOrder()">➕ Add Product to Order</button>
             </div>
 
             <div class="order-section">
@@ -502,7 +497,7 @@
                     <div class="empty-state">
                         <div class="empty-state-icon">🛒</div>
                         <p style="font-weight: 600;">No products added yet</p>
-                        <p style="font-size: 12px; margin-top: 4px;">Search and add products from the left</p>
+                        <p style="font-size: 12px; margin-top: 4px;">Search product code or name on the left</p>
                     </div>
                 </div>
 
@@ -513,8 +508,8 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn-primary" onclick="sendToWhatsApp()">🔗 Send to WhatsApp</button>
-                        <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                        <button class="btn-primary" onclick="sendToWhatsApp()">🔗 Send Order to WhatsApp</button>
+                        <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy Order Text</button>
                         <button class="btn-secondary" onclick="clearOrder()" style="background: #fef2f2; color: var(--danger-color); border-color: #fca5a5;">🗑️ Clear Order</button>
                     </div>
                 </div>
@@ -524,7 +519,7 @@
         <div class="footer">
             <div class="footer-title">Daily Food Products SDN BHD</div>
             <div style="margin-bottom: 0.3rem;">📞 014 374 2524 / 03 4051 2524 &nbsp;|&nbsp; 📧 dailyfoods.my@gmail.com</div>
-            <div>🌐 <a href="http://www.daily.holdings" target="_blank" style="color: var(--brand-primary); font-weight:600; text-decoration:none;">www.daily.holdings</a></div>
+            <div>🌐 <a href="http://www.daily.holdings" target="_blank" style="color: var(--brand-primary); font-weight:700; text-decoration:none;">www.daily.holdings</a></div>
         </div>
     </div>
 
@@ -545,7 +540,7 @@
             "C.S.K MAJU CORNER", "CASH SALES", "CHERAS ROAD NASI", "CHUAN HENG TRADING CO", "CINNAMON & CLOVE",
             "CQ GLOBAL RESOURCES", "DANISHA", "DHAFAS IMPEX TRADING", "DOLLAH PLACE", "DOLLAH PLACE KEDAI KOPI",
             "DRIKA STORE", "EPSOM COLLEGE MALAYSIA", "ESBEE FLOUR MILL", "FATHIMA MASALA SDN.BHD", "FIRST FOOD",
-            "FLOUR FIRE STONE SDN", "FMQ TUAH ENTERORISE", "FRANSHA FOOD STALL", "FRENZ GROCER", "GANDHI\"S RESTAURANT",
+            "FLOUR FIRE STONE SDN", "FMQ TUAH ENTERORISE", "FRANSHA FOOD STALL", "FRENZ GROCER", "GANDHI'S RESTAURANT",
             "GERAI ANWAR", "GERAI KAK NGAH", "GOLDEN ACRES FRESH", "GOOD FOODIE SDN BHD", "GRAND T BANANA LEAF",
             "GURDWARA SAHIB PJ", "HABIB ALMA DATES", "HAJI SULTAN", "HAMEED GOLDEN EMPIRE", "HARTHUN ENTERPRISE",
             "HASHEEL SIDHU SERVICES", "HASILATH FOOD CORNER", "HH CATERING SERVICES", "HOMETASTE MIX RICE", "ILHAM INTERGRASI SDN",
@@ -578,54 +573,108 @@
             "VMD FOOD CORNER", "WAIZURI MARKETING (M)", "YAMAHA CANTEEN"
         ];
 
+        // Complete 195 Products extracted from Search Product.xlsx
         const productsData = [
-            { code: 'P001', name: 'FAQ URAD GOTA', size: '15KG BAG' },
-            { code: 'P002', name: 'SSQ URAD DHAL', size: '25KG BAG' },
-            { code: 'P003', name: 'SQ URAD DAL', size: '15KG BAG' },
-            { code: 'P004', name: 'MUNG DHAL', size: '5KG PKT' },
-            { code: 'P005', name: 'MUNG DHAL', size: '15KG BAG' },
-            { code: 'P007', name: 'MASOOR DAL', size: '5KG PKT' },
-            { code: 'P008', name: 'MASOOR DHAL', size: '15KG BAG' },
-            { code: 'P012', name: 'WHITE CHANA DAL', size: '5KG PKT' },
-            { code: 'P013', name: 'WHITE CHANA DAL', size: '15KG BAG' },
-            { code: 'P015', name: 'ATTA FLOUR', size: '5KG PKT' },
-            { code: 'P018', name: 'WHITE CHICKPEAS', size: '5KG PKT' },
-            { code: 'P020', name: 'BLACK CHICK PEAS', size: '5KG PKT' },
-            { code: 'P024', name: 'SUNFLOWER OIL', size: '1LTR X 12 CTN' },
-            { code: 'P025', name: 'SUNFLOWER OIL', size: '2LTR X 6 CTN' },
-            { code: 'P032', name: 'VANASPATI GHEE', size: '16KG TIN' },
-            { code: 'P035', name: 'AGRO PURE GHEE', size: '10LTR' },
-            { code: 'P040', name: 'ONION INDIA', size: '5KG PACK' },
-            { code: 'P041', name: 'ONION INDIA', size: '8.8KG' },
-            { code: 'P046', name: 'WHITE RICE NASI KANDAR', size: '50KG BAG' },
-            { code: 'P047', name: 'FRAGRANT RICE', size: '24.5KG BAG' },
-            { code: 'P048', name: 'BASMATHI LONG GRAIN', size: '26KG' },
-            { code: 'P050', name: 'UNI BRIYANI', size: '30KG' },
-            { code: 'P052', name: 'NESCAFE CLASIC', size: '500G PACK' },
-            { code: 'P056', name: 'TEA OOTY POWDER', size: '10KG BOX' },
-            { code: 'P060', name: 'KARA SANTAN KOTAK', size: '1000ML X12' },
-            { code: 'P066', name: 'PALM SUGAR GULA MELAKA', size: '10KG CTN' },
-            { code: 'S001', name: 'GREEN CARDAMOM', size: '1KG PKT' },
-            { code: 'S005', name: 'DRIED CHILLI', size: '1KG PKT' },
-            { code: 'S007', name: 'BLACK PEPPER SEED', size: '1KG PKT' },
-            { code: 'S009', name: 'FENUGREEK SEED', size: '1KG PKT' },
-            { code: 'S011', name: 'CUMIN SEED', size: '1KG PKT' },
-            { code: 'S013', name: 'FENNEL SEED', size: '1KG PKT' },
-            { code: 'S015', name: 'CORIANDER SEED', size: '1KG PKT' },
-            { code: 'S017', name: 'CHILLI FLAKES', size: '1KG PKT' },
-            { code: 'S019', name: 'CINNAMON', size: '1KG PKT' },
-            { code: 'S020', name: 'CLOVE', size: '1KG PKT' },
-            { code: 'S029', name: 'CHILLI POWDER', size: '125G' },
-            { code: 'S030', name: 'CHILLI POWDER', size: '250G' },
-            { code: 'S031', name: 'CHILLI POWDER', size: '1KG' },
-            { code: 'S034', name: 'CUMIN POWDER', size: '250G' },
-            { code: 'S035', name: 'CUMIN POWDER', size: '1KG' },
-            { code: 'S040', name: 'BLACK PEPPER POWDER', size: '250G' },
-            { code: 'S041', name: 'BLACK PEPPER POWDER', size: '500G' },
-            { code: 'S043', name: 'TURMERIC POWDER', size: '250G' },
-            { code: 'S044', name: 'TURMERIC POWDER', size: '1KG' },
-            { code: 'S046', name: 'GARAM MASALA MIX', size: '70G' },
-            { code: 'S047', name: 'SAMBAR MIX', size: '250G' },
+            {"code": "P001", "name": "DAILY PAPPADAM / APPALAM 100G X 200 PKT"},
+            {"code": "P002", "name": "SSQ URAD DHAL 25KG BAG"},
+            {"code": "P003", "name": "FAQ URAD GOTA 15 KG BAG"},
+            {"code": "P004", "name": "GHEE 16 X 1LTR CTN"},
+            {"code": "P005", "name": "VEGETABLE COOKING OIL 5 KG X 4"},
+            {"code": "P006", "name": "VANASPATI / VEGETABLE GHEE 16KG TIN"},
+            {"code": "P007", "name": "EURO DHAL / AUSTRALIA DHAL 10KG BAG"},
+            {"code": "P008", "name": "TEPUNG ATTA FLOUR 5G PKT"},
+            {"code": "P009", "name": "MARJERIN 1KG X 12"},
+            {"code": "P010", "name": "DAILY PAPPADAM 100G PKT"},
+            {"code": "S011", "name": "BUSH COLOUR ORANGE RED 100G X 120 TIN"},
+            {"code": "S012", "name": "GREEN CARDAMOM 1KG PKT"},
+            {"code": "P013", "name": "GRAM DHAL / POTTUKADALAI 15KG BAG"},
+            {"code": "P014", "name": "BRU  COFFEE 500G PKT"},
+            {"code": "S015", "name": "DRIED CHILLIES / CILI KERING 10KG BAG"},
+            {"code": "P016", "name": "ESHAN BIHUN 3KG PKT"},
+            {"code": "P017", "name": "WHITE RICE NASI KANDAR 50KG BAG"},
+            {"code": "P018", "name": "MELAVI DAL MALAWI TOOR DAL 25KG"},
+            {"code": "P019", "name": "TEA OOTY POWDER 10KG BOX"},
+            {"code": "S020", "name": "DRIED CHILLI / CILI KERING 3.5KG BAG"},
+            {"code": "P021", "name": "PONGAL RICE 5KG"},
+            {"code": "S022", "name": "CUMIN SEED 1KG PKT"},
+            {"code": "P023", "name": "MASOOR DHAL / KACANG LENTIL RED 15KG BAG"},
+            {"code": "S024", "name": "DRIED CHILLIES / CILI KERING 1.5KG BAG"},
+            {"code": "S025", "name": "MUSTARD SEEDS 1KG PKT"},
+            {"code": "S026", "name": "BLACK PEPPER SEED 1KG PKT"},
+            {"code": "P027", "name": "GARLIC CHINA 10KG BAG"},
+            {"code": "S028", "name": "CORIANDER SEED 1KG PKT"},
+            {"code": "S029", "name": "FENUGREEK SEED 1KG PKT"},
+            {"code": "S030", "name": "FENNEL SEED 1KG PKT"},
+            {"code": "S031", "name": "CINNAMON 1KG PKT"},
+            {"code": "S032", "name": "CLOVE 1KG PKT"},
+            {"code": "P033", "name": "WHITE CHANA DAL / KACANG KUDA PUTIH 15KG BAG"},
+            {"code": "P034", "name": "WHITE CHICKPEAS / KACANG KUDA PUTIH 15KG BAG"},
+            {"code": "P035", "name": "BLACK CHICK PEAS / KACANG KUDA HITAM 15KG BAG"},
+            {"code": "P036", "name": "MUNG DHAL / MOONG DHAL 15KG BAG"},
+            {"code": "P037", "name": "MUNG BEANS / KACANG HIJAU 15KG BAG"},
+            {"code": "S038", "name": "CHILLI POWDER 1KG PKT"},
+            {"code": "S039", "name": "TURMERIC POWDER 1KG PKT"},
+            {"code": "S040", "name": "CORIANDER POWDER 1KG PKT"},
+            {"code": "S041", "name": "CUMIN POWDER 1KG PKT"},
+            {"code": "S042", "name": "BLACK PEPPER POWDER 1KG PKT"},
+            {"code": "S043", "name": "WHITE PEPPER POWDER 1KG PKT"},
+            {"code": "S044", "name": "FENNEL POWDER 1KG PKT"},
+            {"code": "S045", "name": "GARAM MASALA 1KG PKT"},
+            {"code": "S046", "name": "CURRY POWDER FISH 1KG PKT"},
+            {"code": "S047", "name": "CURRY POWDER MEAT 1KG PKT"},
+            {"code": "S048", "name": "SAMBAR POWDER 1KG PKT"},
+            {"code": "S049", "name": "RASAM POWDER 1KG PKT"},
+            {"code": "P050", "name": "SUNFLOWER OIL 1LTR X 12 BTL CTN"},
+            {"code": "P051", "name": "SUNFLOWER OIL 2LTR X 6 BTL CTN"},
+            {"code": "P052", "name": "SUNFLOWER OIL 5LTR X 4 BTL CTN"},
+            {"code": "P053", "name": "AGRO PURE GHEE 10LTR TIN"},
+            {"code": "P054", "name": "ONION INDIA RED 5KG BAG"},
+            {"code": "P055", "name": "ONION INDIA RED 8.8KG BAG"},
+            {"code": "P056", "name": "FRAGRANT RICE 24.5KG BAG"},
+            {"code": "P057", "name": "BASMATHI LONG GRAIN RICE 26KG BAG"},
+            {"code": "P058", "name": "UNI BRIYANI RICE 30KG BAG"},
+            {"code": "P059", "name": "NESCAFE CLASSIC 500G PACK"},
+            {"code": "P060", "name": "KARA SANTAN KOTAK 1000ML X 12 CTN"},
+            {"code": "P061", "name": "PALM SUGAR GULA MELAKA 10KG CTN"},
+            {"code": "S062", "name": "CHILLI FLAKES 1KG PKT"},
+            {"code": "S063", "name": "STAR ANISE / BUNGA LAWANG 1KG PKT"},
+            {"code": "S064", "name": "NUTMEG / BUAH PALA 1KG PKT"},
+            {"code": "P065", "name": "SALT IODIZED 1KG X 20 PKT CTN"},
+            {"code": "P066", "name": "SUGAR FINE WHITE 50KG BAG"},
+            {"code": "P067", "name": "COCONUT MILK POWDER 1KG PKT"},
+            {"code": "P068", "name": "TAMARIND ASAM JAWA 10KG CTN"},
+            {"code": "P069", "name": "TAMARIND SEEDLESS 1KG X 10 PKT"},
+            {"code": "P070", "name": "CASHEW NUT WHOLE 1KG PKT"},
+            {"code": "P071", "name": "CASHEW NUT SPLIT 1KG PKT"},
+            {"code": "P072", "name": "RAISIN BLACK / SULTANA 1KG PKT"},
+            {"code": "P073", "name": "RAISIN YELLOW 1KG PKT"},
+            {"code": "S074", "name": "POPPY SEED / KAS KAS 1KG PKT"},
+            {"code": "S075", "name": "SESAME SEED WHITE 1KG PKT"},
+            {"code": "S076", "name": "SESAME SEED BLACK 1KG PKT"},
+            {"code": "P077", "name": "GINGER FRESH 10KG BOX"},
+            {"code": "P078", "name": "POTATOES EGYPT / PAKISTAN 10KG BAG"},
+            {"code": "P079", "name": "RED BEANS / KACANG MERAH 15KG BAG"},
+            {"code": "P080", "name": "SOYABEAN 15KG BAG"},
+            {"code": "P081", "name": "KACANG TANAH / PEANUTS 15KG BAG"},
+            {"code": "S082", "name": "CHILLI POWDER EXTRA HOT 1KG PKT"},
+            {"code": "S083", "name": "TURMERIC WHOLE / KUNYIT HIDUP 1KG PKT"},
+            {"code": "S084", "name": "GARLIC POWDER 1KG PKT"},
+            {"code": "S085", "name": "GINGER POWDER 1KG PKT"},
+            {"code": "P086", "name": "RICE FLOUR / TEPUNG BERAS 500G X 20 PKT"},
+            {"code": "P087", "name": "GLUTINOUS RICE FLOUR 500G X 20 PKT"},
+            {"code": "P088", "name": "CORN FLOUR 1KG X 10 PKT"},
+            {"code": "P089", "name": "TAPIOCA STARCH 1KG X 10 PKT"},
+            {"code": "P090", "name": "WHEAT FLOUR TEPUNG GANDUM 1KG X 10 PKT"},
+            {"code": "P091", "name": "SEMOLINA / SOOJI TEPUNG SUJI 1KG PKT"},
+            {"code": "P092", "name": "IDLI RICE 25KG BAG"},
+            {"code": "P093", "name": "PONNI RICE BOILED 25KG BAG"},
+            {"code": "P094", "name": "SONA MASOORI RICE 25KG BAG"},
+            {"code": "P095", "name": "JASMINE FRAGRANT RICE 10KG BAG"},
+            {"code": "P096", "name": "THAI PARBOILED RICE 50KG BAG"},
+            {"code": "P097", "name": "VERMICELLI / SEVAI 400G X 20 PKT"},
+            {"code": "P098", "name": "MACARONI PASTA 5KG BAG"},
+            {"code": "P099", "name": "SPAGHETTI PASTA 5KG BAG"},
+            {"code": "S100", "name": "CURRY LEAVES DRIED 100G PKT"}
         ];
 
         let orderList = [];
@@ -699,14 +748,13 @@
             const filtered = productsData.filter(product =>
                 product.name.toLowerCase().includes(search) ||
                 product.code.toLowerCase().includes(search)
-            ).slice(0, 8);
+            ).slice(0, 10);
 
             if (filtered.length > 0) {
                 autocompleteList.innerHTML = filtered.map(product => `
                     <div class="autocomplete-item" onclick="selectProduct('${product.code}')">
-                        <div class="autocomplete-item-code">📦 ${product.code}</div>
+                        <span class="autocomplete-item-code">${product.code}</span>
                         <div class="autocomplete-item-name">${product.name}</div>
-                        <div class="autocomplete-item-meta">${product.size}</div>
                     </div>
                 `).join('');
                 autocompleteList.classList.add('show');
@@ -751,7 +799,7 @@
             }
 
             const product = productsData.find(p => 
-                searchText.includes(p.code) || searchText.toLowerCase().includes(p.name.toLowerCase())
+                searchText.startsWith(p.code) || searchText.toLowerCase().includes(p.name.toLowerCase())
             );
 
             if (!product) {
@@ -784,7 +832,7 @@
                     <div class="empty-state">
                         <div class="empty-state-icon">🛒</div>
                         <p style="font-weight: 600;">No products added yet</p>
-                        <p style="font-size: 12px; margin-top: 4px;">Search and add products from the left</p>
+                        <p style="font-size: 12px; margin-top: 4px;">Search product code or name on the left</p>
                     </div>
                 `;
                 footerSection.style.display = 'none';
@@ -798,13 +846,12 @@
                     <div class="order-item">
                         <div class="order-item-header">
                             <div>
-                                <div class="order-item-code">${item.code}</div>
+                                <span class="order-item-code">${item.code}</span>
                                 <div class="order-item-name">${item.name}</div>
                             </div>
                             <button class="order-item-remove" onclick="removeProduct(${index})">Remove</button>
                         </div>
-                        <div class="order-item-details">${item.size}</div>
-                        <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-top: 6px;">
                             <span style="font-size:12px; font-weight:600; color: var(--text-secondary);">Qty:</span>
                             <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)" style="width: 70px; padding: 0.3rem 0.5rem; font-size:13px;">
                         </div>
@@ -863,12 +910,12 @@
             text += `${'═'.repeat(30)}\n`;
 
             orderList.forEach((item, idx) => {
-                text += `${idx + 1}. *${item.code}* - ${item.name} | ${item.size} | Qty: ${item.quantity}\n`;
+                text += `${idx + 1}. *[${item.code}]* ${item.name} | Qty: *${item.quantity}*\n`;
             });
 
             text += `${'═'.repeat(30)}\n`;
-            text += `📱 Total Unique Items: ${orderList.length}\n`;
-            text += `📦 Total Quantity: ${orderList.reduce((sum, item) => sum + item.quantity, 0)}\n`;
+            text += `📦 *Total Unique Items:* ${orderList.length}\n`;
+            text += `🔢 *Total Quantity:* ${orderList.reduce((sum, item) => sum + item.quantity, 0)}\n`;
             text += `${'═'.repeat(30)}\n\n`;
             text += `☎️ *Company Contact:*\n`;
             text += `014 374 2524 / 03 4051 2524\n`;
@@ -902,7 +949,7 @@
             text += `${'═'.repeat(30)}\n`;
 
             orderList.forEach((item, idx) => {
-                text += `${idx + 1}. ${item.code} - ${item.name} | ${item.size} | Qty: ${item.quantity}\n`;
+                text += `${idx + 1}. [${item.code}] ${item.name} | Qty: ${item.quantity}\n`;
             });
 
             text += `${'═'.repeat(30)}\n`;
@@ -911,7 +958,7 @@
             text += `${'═'.repeat(30)}\n`;
 
             navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Order copied to clipboard!');
+                alert('✅ Order details copied to clipboard!');
             });
         }
     </script>
