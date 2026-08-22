@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Foods - Order App</title>
+    <title>Daily Food Products - Order App</title>
     <style>
         * {
             margin: 0;
@@ -12,28 +12,26 @@
         }
 
         :root {
-            /* Daily Foods Brand Color Palette (Based on Logo) */
-            --brand-primary: #3a2012;       /* Warm Espresso Brown */
-            --brand-primary-light: #52301c; /* Lighter Brown */
-            --brand-accent: #f5b800;        /* Golden Sun Yellow */
-            --brand-accent-hover: #e0a700;  /* Slightly Darker Gold */
-            --brand-bg: #f9f6f0;            /* Soft Warm Cream */
-            
+            --primary-color: #2b0a0d;       /* Brand Deep Burgundy */
+            --primary-light: #421217;
+            --primary-dark: #190507;
+            --accent-yellow: #ffdc00;       /* Brand Yellow */
+            --accent-green: #4caf50;        /* Brand Leaf Green */
             --success-color: #2e7d32;
-            --danger-color: #c62828;
-            --bg-white: #ffffff;
-            --bg-secondary: #f4efe6;
-            --text-primary: #21150c;
-            --text-secondary: #5c4a3e;
-            --border-color: #d8cebe;
+            --danger-color: #ef4444;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fdfbf7;
+            --bg-tertiary: #f3efe6;
+            --text-primary: #212121;
+            --text-secondary: #616161;
+            --border-color: #e0dace;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--brand-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2b0a0d 0%, #421217 100%);
             min-height: 100vh;
-            padding: 1.5rem 1rem;
-            color: var(--text-primary);
+            padding: 1rem;
         }
 
         .container {
@@ -41,51 +39,31 @@
             margin: 0 auto;
         }
 
-        /* Header & Logo Placement */
         .header {
-            background: var(--brand-primary);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
             color: white;
-            padding: 1.5rem 1rem;
-            border-radius: 16px;
+            padding: 2rem;
+            border-radius: 12px;
             text-align: center;
             margin-bottom: 2rem;
-            box-shadow: 0 8px 20px rgba(58, 32, 18, 0.2);
-            border-bottom: 5px solid var(--brand-accent);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-container {
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .brand-logo {
-            max-width: 110px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.3));
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent-yellow);
         }
 
         .header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--brand-accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 0.2rem;
+            font-size: 32px;
+            margin-bottom: 0.25rem;
+            color: var(--accent-yellow);
         }
 
-        .header p {
-            font-size: 13px;
-            color: #f3e9dc;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+        .header-logo-img {
+            max-width: 130px;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 0.75rem;
+            background: #ffffff;
+            padding: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .main-content {
@@ -95,40 +73,29 @@
             margin-bottom: 2rem;
         }
 
-        .form-section, .order-section {
-            background: var(--bg-white);
-            border-radius: 16px;
+        .form-section {
+            background: white;
+            border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 4px 20px -2px rgba(58, 32, 18, 0.08);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .form-section h2, .order-section h2 {
-            margin-bottom: 1.25rem;
-            color: var(--brand-primary);
+        .form-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
             font-size: 20px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
         .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .required::after {
@@ -137,23 +104,24 @@
         }
 
         input[type="text"],
-        input[type="number"] {
+        input[type="number"],
+        select {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1.5px solid var(--border-color);
-            border-radius: 10px;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
             font-size: 14px;
-            transition: all 0.2s ease;
+            transition: all 0.3s;
             background: var(--bg-secondary);
-            color: var(--text-primary);
         }
 
         input[type="text"]:focus,
-        input[type="number"]:focus {
+        input[type="number"]:focus,
+        select:focus {
             outline: none;
-            border-color: var(--brand-primary);
+            border-color: var(--primary-color);
             background: white;
-            box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.3);
+            box-shadow: 0 0 0 3px rgba(43, 10, 13, 0.15);
         }
 
         .autocomplete-container {
@@ -162,17 +130,18 @@
 
         .autocomplete-list {
             position: absolute;
-            top: calc(100% + 4px);
+            top: 100%;
             left: 0;
             right: 0;
             background: white;
-            border: 1.5px solid var(--brand-primary);
-            border-radius: 10px;
-            max-height: 240px;
+            border: 2px solid var(--primary-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 300px;
             overflow-y: auto;
             z-index: 100;
             display: none;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .autocomplete-list.show {
@@ -180,302 +149,313 @@
         }
 
         .autocomplete-item {
-            padding: 0.75rem 1rem;
+            padding: 1rem;
             cursor: pointer;
-            border-bottom: 1px solid #f1f5f9;
-            transition: background 0.15s ease;
-        }
-
-        .autocomplete-item:last-child {
-            border-bottom: none;
+            border-bottom: 1px solid var(--bg-secondary);
+            transition: background 0.2s;
         }
 
         .autocomplete-item:hover {
-            background: #fef7e6;
+            background: var(--bg-secondary);
         }
 
         .autocomplete-item-code {
-            font-weight: 700;
-            color: var(--brand-primary);
-            font-size: 12px;
-            background: #fdf2d6;
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-bottom: 2px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
         }
 
         .autocomplete-item-name {
             color: var(--text-primary);
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .autocomplete-item-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
         }
 
         button {
             width: 100%;
             padding: 0.85rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s;
         }
 
         .btn-add {
-            background: var(--brand-accent);
-            color: var(--brand-primary);
-            margin-top: 0.5rem;
+            background: var(--accent-green);
+            color: white;
+            margin-top: 1rem;
         }
 
         .btn-add:hover {
-            background: var(--brand-accent-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(245, 184, 0, 0.35);
+            background: var(--success-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .order-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             max-height: 800px;
-            display: flex;
-            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .order-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 20px;
         }
 
         .order-items {
             display: flex;
             flex-direction: column;
-            gap: 0.85rem;
-            overflow-y: auto;
-            padding-right: 4px;
-            flex-grow: 1;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .order-item {
             background: var(--bg-secondary);
             padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--brand-primary);
-            border-top: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-yellow);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .order-item-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .order-item-code {
             font-weight: 700;
-            color: var(--brand-primary);
-            font-size: 12px;
-            background: #fdf2d6;
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
+            color: var(--primary-color);
+            font-size: 14px;
         }
 
         .order-item-name {
             color: var(--text-primary);
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 2px;
+            font-weight: 500;
+            font-size: 13px;
         }
 
         .order-item-remove {
-            background: #fef2f2;
-            color: var(--danger-color);
-            border: 1px solid #fca5a5;
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 12px;
             font-weight: 600;
         }
 
-        .order-item-remove:hover {
-            background: var(--danger-color);
-            color: white;
+        .order-item-details {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .order-item-qty {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+
+        .order-item-qty input {
+            width: 60px;
+            padding: 0.4rem;
+            font-size: 13px;
         }
 
         .order-footer {
-            padding-top: 1.25rem;
-            border-top: 2px dashed var(--border-color);
-            margin-top: 1.25rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+            margin-top: 1.5rem;
         }
 
         .order-grand-total {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--brand-primary);
-            color: white;
-            padding: 1rem 1.25rem;
-            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: var(--accent-yellow);
+            padding: 1rem;
+            border-radius: 8px;
             margin-bottom: 1rem;
+            border: 1px solid var(--accent-yellow);
         }
 
         .order-grand-total-label {
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            font-weight: 600;
+            font-size: 14px;
+            color: #ffffff;
         }
 
         .order-grand-total-value {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            color: var(--brand-accent);
         }
 
         .action-buttons {
             display: flex;
-            gap: 0.75rem;
+            gap: 1rem;
             flex-direction: column;
         }
 
         .btn-primary {
-            background: var(--brand-primary);
+            background: var(--accent-green);
             color: white;
         }
 
         .btn-primary:hover {
-            background: var(--brand-primary-light);
+            background: var(--success-color);
         }
 
         .btn-secondary {
             background: var(--bg-secondary);
             color: var(--text-primary);
-            border: 1.5px solid var(--border-color);
+            border: 2px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            background: #ebdcc9;
+            background: var(--bg-tertiary);
         }
 
         .empty-state {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 2rem 1rem;
             color: var(--text-secondary);
         }
 
         .empty-state-icon {
-            font-size: 40px;
-            margin-bottom: 0.5rem;
+            font-size: 48px;
+            margin-bottom: 1rem;
         }
 
         .footer {
-            background: var(--bg-white);
-            border-radius: 14px;
+            background: white;
+            border-radius: 12px;
             padding: 1.5rem;
-            text-align: center;
             font-size: 13px;
             color: var(--text-secondary);
-            box-shadow: 0 4px 15px -2px rgba(58, 32, 18, 0.08);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            border-top: 4px solid var(--accent-yellow);
         }
 
-        .footer-title {
-            color: var(--brand-primary);
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
+        .footer-company-info {
+            text-align: center;
         }
 
-        .badge {
-            background: var(--brand-accent);
-            color: var(--brand-primary);
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .info-box {
-            background: #fdf7e7;
-            border-left: 4px solid var(--brand-accent);
-            padding: 0.85rem;
+        .footer-bank-card {
+            background: #fffdf0;
+            border: 1.5px dashed var(--accent-yellow);
             border-radius: 8px;
-            margin-bottom: 1.25rem;
-            font-size: 13px;
-            color: var(--brand-primary);
+            padding: 1rem;
+            text-align: center;
         }
 
-        @media (max-width: 900px) {
+        .footer-bank-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 13px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-bank-details {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .footer-bank-acc {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 1024px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
+            .order-section {
+                max-height: 500px;
             }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--accent-yellow);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .info-box {
+            background: #fffdf0;
+            border-left: 4px solid var(--accent-yellow);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 13px;
+            color: var(--text-primary);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header Top Center Logo Placement -->
         <div class="header">
-            <div class="logo-container">
-                <!-- Replace logo.png with your image file path -->
-                <img src="logo.png" alt="Daily Foods Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <div style="display:none; font-size: 28px; font-weight: bold; color: var(--brand-accent);">☀️ DAILY</div>
-            </div>
+            <img src="unnamed.jpg" alt="Daily Food Products Logo" class="header-logo-img">
             <h1>Daily Food Products</h1>
-            <p>Order Management System</p>
+            <p style="font-size: 16px; opacity: 0.9;">Order Management System</p>
         </div>
 
         <div class="main-content">
             <div class="form-section">
-                <h2>📝 Add Order Item</h2>
+                <h2>📝 Add Order</h2>
 
                 <div class="info-box">
-                    💡 Select Agent & Store, type product name or code (e.g., <b>S011</b>, <b>P001</b>, <b>Cumin</b>), set quantity, and generate WhatsApp order.
+                    💡 Add products one by one and send to WhatsApp
                 </div>
 
                 <div class="form-group">
                     <label class="required">Sales Agent Name</label>
-                    <div class="autocomplete-container">
-                        <input 
-                            type="text" 
-                            id="salesAgent" 
-                            placeholder="Type or select agent name"
-                            autocomplete="off"
-                        >
-                        <div id="agentList" class="autocomplete-list"></div>
-                    </div>
-                </div>
-
-                <div class="form-group form-row">
-                    <div>
-                        <label class="required">Store Name</label>
-                        <div class="autocomplete-container">
-                            <input 
-                                type="text" 
-                                id="storeName" 
-                                placeholder="Type or select store"
-                                autocomplete="off"
-                            >
-                            <div id="storeList" class="autocomplete-list"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <label>Location / Branch</label>
-                        <input 
-                            type="text" 
-                            id="storeLocation" 
-                            placeholder="e.g. Brickfields, Chow Kit"
-                        >
-                    </div>
+                    <input type="text" id="salesAgent" placeholder="Your name">
                 </div>
 
                 <div class="form-group">
-                    <label class="required">Search Product (Code or Name)</label>
+                    <label class="required">Store Name</label>
+                    <input type="text" id="storeName" placeholder="Store name">
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Search Product</label>
                     <div class="autocomplete-container">
                         <input 
                             type="text" 
                             id="productSearch" 
-                            placeholder="Type product name or code (e.g. S011, P001, DHAL)"
+                            placeholder="Type product name or code (P001, Rice)"
                             autocomplete="off"
                         >
                         <div id="autocompleteList" class="autocomplete-list"></div>
@@ -487,7 +467,7 @@
                     <input type="number" id="quantity" value="1" min="1" placeholder="Enter quantity">
                 </div>
 
-                <button class="btn-add" onclick="addProductToOrder()">➕ Add Product to Order</button>
+                <button class="btn-add" onclick="addProductToOrder()">➕ Add Product</button>
             </div>
 
             <div class="order-section">
@@ -495,195 +475,251 @@
 
                 <div id="orderItems" class="order-items">
                     <div class="empty-state">
-                        <div class="empty-state-icon">🛒</div>
-                        <p style="font-weight: 600;">No products added yet</p>
-                        <p style="font-size: 12px; margin-top: 4px;">Search product code or name on the left</p>
+                        <div class="empty-state-icon">📦</div>
+                        <p>No products added yet</p>
+                        <p style="font-size: 12px;">Add products from the left</p>
                     </div>
                 </div>
 
                 <div class="order-footer" id="footerSection" style="display: none;">
                     <div class="order-grand-total">
-                        <span class="order-grand-total-label">TOTAL QUANTITY</span>
+                        <span class="order-grand-total-label">TOTAL ITEMS</span>
                         <span class="order-grand-total-value" id="totalItems">0</span>
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn-primary" onclick="sendToWhatsApp()">🔗 Send Order to WhatsApp</button>
-                        <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy Order Text</button>
-                        <button class="btn-secondary" onclick="clearOrder()" style="background: #fef2f2; color: var(--danger-color); border-color: #fca5a5;">🗑️ Clear Order</button>
+                        <button class="btn-primary" onclick="sendToWhatsApp()">🔗 Send to WhatsApp</button>
+                        <button class="btn-secondary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                        <button class="btn-secondary" onclick="clearOrder()" style="background: #fee2e2; color: var(--danger-color); border-color: var(--danger-color);">🗑️ Clear Order</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <div class="footer-title">Daily Food Products SDN BHD</div>
-            <div style="margin-bottom: 0.3rem;">📞 014 374 2524 / 03 4051 2524 &nbsp;|&nbsp; 📧 dailyfoods.my@gmail.com</div>
-            <div>🌐 <a href="http://www.daily.holdings" target="_blank" style="color: var(--brand-primary); font-weight:700; text-decoration:none;">www.daily.holdings</a></div>
+            <div class="footer-bank-card">
+                <div class="footer-bank-title">💳 Official Bank Details</div>
+                <div class="footer-bank-details">
+                    <div><strong>MAYBANK</strong></div>
+                    <div>DAILY FOOD PRODUCTS SDN BHD</div>
+                    <div class="footer-bank-acc">5124 0056 1269</div>
+                </div>
+            </div>
+
+            <div class="footer-company-info">
+                <div class="footer-contact">
+                    <strong>Daily Food Products SDN BHD</strong>
+                </div>
+                <div class="footer-contact">
+                    📞 014 374 2524 / 03 4051 2524 | 📧 dailyfoods.my@gmail.com
+                </div>
+                <div>
+                    🌐 www.daily.holdings
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const salesAgentsData = [
-            "PALANI", "HUSSAIN", "JASMINE", "DEV", "KALAI", "SUFFAIR", "UBAIS", "YOGEN"
-        ];
-
-        const storesData = [
-            "1203 SUPER STORE", "515 MINI MARRT", "AACHA CURRY HOUSE", "AALIEF SIGNATURE SDN", "ABC BANANA LEAF",
-            "ABC BISTRO CAFE MASJID", "ABC CASH & CARRY", "ABC FOOD CORNER", "ABC FOOD CORNER PKNS", "ABC FOODS CORNER",
-            "ABC ONE BISTRO", "ABIRAMI STORES", "ACME FINE FOOD SDN BHD", "ADAIKALAM FOOD STALL", "AGARAM CURRY HOUSE",
-            "AGRO 19 BERHAD", "AL - WAARITS SERVICES", "AL ALIS MAJU TRADING", "AL AMIN CURRY HOUSE", "AL BIDAYAH GLOBAL SDN",
-            "AL HADI SAYED GHULAM", "AL SAJA RESOURCES SDN", "ALIRIA NASI KANDAR", "ALYA SHINE SSR", "AM FAZLINA MAJU CURRY",
-            "AMEEN MAJU SDN BHD", "ANJAPPAR", "ANNACHI GROCERS SDN", "ANNAPORNAM", "ANNE BRIYANI SPICY",
-            "ASR MAJU TRADING", "AYYAPA PULLINGO EMPIRE", "AZHALAGAN RESOURCES", "BANGSAR FISH HEAD", "BAWAS DELICACY",
-            "BERKAT MUAFAKAT", "BIG ONION CATERER SDN", "BLT KAJANG GLOBAL", "BOSS AKKA CURRY MASALA", "BUKHARIAH ENTERPRISE",
-            "C.S.K MAJU CORNER", "CASH SALES", "CHERAS ROAD NASI", "CHUAN HENG TRADING CO", "CINNAMON & CLOVE",
-            "CQ GLOBAL RESOURCES", "DANISHA", "DHAFAS IMPEX TRADING", "DOLLAH PLACE", "DOLLAH PLACE KEDAI KOPI",
-            "DRIKA STORE", "EPSOM COLLEGE MALAYSIA", "ESBEE FLOUR MILL", "FATHIMA MASALA SDN.BHD", "FIRST FOOD",
-            "FLOUR FIRE STONE SDN", "FMQ TUAH ENTERORISE", "FRANSHA FOOD STALL", "FRENZ GROCER", "GANDHI'S RESTAURANT",
-            "GERAI ANWAR", "GERAI KAK NGAH", "GOLDEN ACRES FRESH", "GOOD FOODIE SDN BHD", "GRAND T BANANA LEAF",
-            "GURDWARA SAHIB PJ", "HABIB ALMA DATES", "HAJI SULTAN", "HAMEED GOLDEN EMPIRE", "HARTHUN ENTERPRISE",
-            "HASHEEL SIDHU SERVICES", "HASILATH FOOD CORNER", "HH CATERING SERVICES", "HOMETASTE MIX RICE", "ILHAM INTERGRASI SDN",
-            "JAIHIND", "JANNAH UMMU TRADING", "JASANGA (M) SDN BHD", "JASPILITE STORE", "JBMM HOLDINGS (M) SDN",
-            "JKS ENTERPRISE", "KADER RESTORAN", "KANNA CURRY HOUSE", "KANNA STALL", "KARI KEPALA IKAN ANUAR",
-            "KEDAI MAKAN TASLIM", "KEDAI MAKANAN SITHIQUE", "KEDAI RUNCIT AMEER", "KEDAI RUNCIT BALA", "KELAB PJ",
-            "KENNY HILLS BAKERS SDN", "KENNY HILLS COFFEE SDN", "KHALSA LAND GURDWARA", "KILANG TEPUNG MAHAS", "KOOTALI RESOURCES",
-            "KOPITIAM WEST PORT", "KRM CASH & CARRY", "LAKSHMI MINI MARKET", "LC RESTAURANT", "LEE'S FOOD SUPPLY SDN",
-            "M. SARVINI ENTERPRISE", "MADRAS BAKERY", "MADRAS CAFE", "MADURAS WHOLESALE", "MANI RESTAURANT",
-            "MARHABA 1 BISTRO", "MASALA GRILL CUISINE", "MASRIA NASI KERABU", "MAYA  BEAUTY", "MAZZA SPICE",
-            "MEERASA SPICES TRADING", "MIDFIELD RESTAURANT", "MMK SPICES SDN BHD", "MOHAMED MEERA SAHIB", "MR CURRY NASI KANDAR",
-            "MRF GEMILANG", "MY HUMBLE BOWL SDN", "MYDIN WHOLESALE", "NASI KANDAR ALOR SETAR", "NASI KANDAR ALOR STAQ",
-            "NASI KANDAR ALOT STAR", "NASI KANDAR ARYFINA", "NASI KANDAR HAJI SULTAN", "NASI KANDAR HUSSEIN", "NASI KANDAR MAMU",
-            "NASI KANDAR ORIGINAL", "NASI KANDAR PELITA", "NASI KANDAR PENANG", "NASI KANDAR SADDAM", "NASI LEMAK ROYALE",
-            "NILA FRESH MARKET", "ORMOND LIFESTYLE", "PASAR HARIAN SUREESH", "PASAR MINI NOOR", "PASAR MINI NZ",
-            "PASAR MINI ZAINAB SDN", "PASARAYA BOSS", "PATIALA PUNJABI SWEETS", "PEMBORONG BARANGAN", "PKKP ENTERPRISE",
-            "PRETTY FOOD CORNER", "R E K KEDAI RUNCT", "RAHIM STALL", "REMPAH EMAS SDN BHD", "RESTAURANT AMMER",
-            "RESTAURANT RAJA POKOK", "RESTORAN 128", "RESTORAN ALEF", "RESTORAN ALHAFIZ", "RESTORAN AMAN YUSOF",
-            "RESTORAN AS BISMI MAJU", "RESTORAN ASMAAS", "RESTORAN BALA MURUGAN", "RESTORAN BRJ", "RESTORAN DAUN PISANG",
-            "RESTORAN DI NAINA", "RESTORAN FAIROS MAJU", "RESTORAN HALEEMAH", "RESTORAN INSAF", "RESTORAN INSHAF BISTRO",
-            "RESTORAN KOK SIONG", "RESTORAN KRAVEE", "RESTORAN MS NINE", "RESTORAN NASI KANDAR", "RESTORAN NELLAI XO",
-            "RESTORAN PS MAJU", "RESTORAN RAHMAN ALI", "RESTORAN RIYAZ", "RESTORAN SELVAM", "RESTORAN SRI PANDI",
-            "RESTORAN SYED AMIR", "RESTORAN TAJUDIN NASI", "RESTORANT MARHABA", "RK PASEMBOR KITCHEN", "RK STAR SDN BHD",
-            "S.R.MANIAM FLOUR MILL", "SADDAM NASI KANDAR", "SAI.MAL ENTERPRISE", "SAJIAN AMBANG SDN BHD", "SAMPLE FOR CUSTOMER",
-            "SANTHA'S SPICES", "SAYANG CURRY HOUSE", "SB JAYA FOOD CORNER", "SCS JAYA ENTERPRISE", "SDKL FOOD RESOURCES",
-            "SERI PERMAI CATERERS", "SHAAZRY PUCHONG", "SHAFAT MAJU SDN.BHD", "SIVAGAMY STALL", "SJ SPEEDMART",
-            "SPICE MANTRA", "SRI JAYAM SPICES", "SRI KANTHAN SAKTI", "STAR HADRAMOUT EMPIRE", "SUN STAR RESTAURANT",
-            "SUNRISE BAYUMAS SDN", "SYABAS MERCU", "SYARIKAT LITTLE", "THASHINAS TRADING", "THE KUNYIT SHOP STALL",
-            "USTAZ HIDAYATULLAH", "VEGANICPRO TRADING", "VENTURAS CATERING", "VINNY JEYA", "VK MESS CURRY HOUSE",
-            "VMD FOOD CORNER", "WAIZURI MARKETING (M)", "YAMAHA CANTEEN"
-        ];
-
-        // Complete 195 Products extracted from Search Product.xlsx
         const productsData = [
-            {"code": "P001", "name": "DAILY PAPPADAM / APPALAM 100G X 200 PKT"},
-            {"code": "P002", "name": "SSQ URAD DHAL 25KG BAG"},
-            {"code": "P003", "name": "FAQ URAD GOTA 15 KG BAG"},
-            {"code": "P004", "name": "GHEE 16 X 1LTR CTN"},
-            {"code": "P005", "name": "VEGETABLE COOKING OIL 5 KG X 4"},
-            {"code": "P006", "name": "VANASPATI / VEGETABLE GHEE 16KG TIN"},
-            {"code": "P007", "name": "EURO DHAL / AUSTRALIA DHAL 10KG BAG"},
-            {"code": "P008", "name": "TEPUNG ATTA FLOUR 5G PKT"},
-            {"code": "P009", "name": "MARJERIN 1KG X 12"},
-            {"code": "P010", "name": "DAILY PAPPADAM 100G PKT"},
-            {"code": "S011", "name": "BUSH COLOUR ORANGE RED 100G X 120 TIN"},
-            {"code": "S012", "name": "GREEN CARDAMOM 1KG PKT"},
-            {"code": "P013", "name": "GRAM DHAL / POTTUKADALAI 15KG BAG"},
-            {"code": "P014", "name": "BRU  COFFEE 500G PKT"},
-            {"code": "S015", "name": "DRIED CHILLIES / CILI KERING 10KG BAG"},
-            {"code": "P016", "name": "ESHAN BIHUN 3KG PKT"},
-            {"code": "P017", "name": "WHITE RICE NASI KANDAR 50KG BAG"},
-            {"code": "P018", "name": "MELAVI DAL MALAWI TOOR DAL 25KG"},
-            {"code": "P019", "name": "TEA OOTY POWDER 10KG BOX"},
-            {"code": "S020", "name": "DRIED CHILLI / CILI KERING 3.5KG BAG"},
-            {"code": "P021", "name": "PONGAL RICE 5KG"},
-            {"code": "S022", "name": "CUMIN SEED 1KG PKT"},
-            {"code": "P023", "name": "MASOOR DHAL / KACANG LENTIL RED 15KG BAG"},
-            {"code": "S024", "name": "DRIED CHILLIES / CILI KERING 1.5KG BAG"},
-            {"code": "S025", "name": "MUSTARD SEEDS 1KG PKT"},
-            {"code": "S026", "name": "BLACK PEPPER SEED 1KG PKT"},
-            {"code": "P027", "name": "GARLIC CHINA 10KG BAG"},
-            {"code": "S028", "name": "CORIANDER SEED 1KG PKT"},
-            {"code": "S029", "name": "FENUGREEK SEED 1KG PKT"},
-            {"code": "S030", "name": "FENNEL SEED 1KG PKT"},
-            {"code": "S031", "name": "CINNAMON 1KG PKT"},
-            {"code": "S032", "name": "CLOVE 1KG PKT"},
-            {"code": "P033", "name": "WHITE CHANA DAL / KACANG KUDA PUTIH 15KG BAG"},
-            {"code": "P034", "name": "WHITE CHICKPEAS / KACANG KUDA PUTIH 15KG BAG"},
-            {"code": "P035", "name": "BLACK CHICK PEAS / KACANG KUDA HITAM 15KG BAG"},
-            {"code": "P036", "name": "MUNG DHAL / MOONG DHAL 15KG BAG"},
-            {"code": "P037", "name": "MUNG BEANS / KACANG HIJAU 15KG BAG"},
-            {"code": "S038", "name": "CHILLI POWDER 1KG PKT"},
-            {"code": "S039", "name": "TURMERIC POWDER 1KG PKT"},
-            {"code": "S040", "name": "CORIANDER POWDER 1KG PKT"},
-            {"code": "S041", "name": "CUMIN POWDER 1KG PKT"},
-            {"code": "S042", "name": "BLACK PEPPER POWDER 1KG PKT"},
-            {"code": "S043", "name": "WHITE PEPPER POWDER 1KG PKT"},
-            {"code": "S044", "name": "FENNEL POWDER 1KG PKT"},
-            {"code": "S045", "name": "GARAM MASALA 1KG PKT"},
-            {"code": "S046", "name": "CURRY POWDER FISH 1KG PKT"},
-            {"code": "S047", "name": "CURRY POWDER MEAT 1KG PKT"},
-            {"code": "S048", "name": "SAMBAR POWDER 1KG PKT"},
-            {"code": "S049", "name": "RASAM POWDER 1KG PKT"},
-            {"code": "P050", "name": "SUNFLOWER OIL 1LTR X 12 BTL CTN"},
-            {"code": "P051", "name": "SUNFLOWER OIL 2LTR X 6 BTL CTN"},
-            {"code": "P052", "name": "SUNFLOWER OIL 5LTR X 4 BTL CTN"},
-            {"code": "P053", "name": "AGRO PURE GHEE 10LTR TIN"},
-            {"code": "P054", "name": "ONION INDIA RED 5KG BAG"},
-            {"code": "P055", "name": "ONION INDIA RED 8.8KG BAG"},
-            {"code": "P056", "name": "FRAGRANT RICE 24.5KG BAG"},
-            {"code": "P057", "name": "BASMATHI LONG GRAIN RICE 26KG BAG"},
-            {"code": "P058", "name": "UNI BRIYANI RICE 30KG BAG"},
-            {"code": "P059", "name": "NESCAFE CLASSIC 500G PACK"},
-            {"code": "P060", "name": "KARA SANTAN KOTAK 1000ML X 12 CTN"},
-            {"code": "P061", "name": "PALM SUGAR GULA MELAKA 10KG CTN"},
-            {"code": "S062", "name": "CHILLI FLAKES 1KG PKT"},
-            {"code": "S063", "name": "STAR ANISE / BUNGA LAWANG 1KG PKT"},
-            {"code": "S064", "name": "NUTMEG / BUAH PALA 1KG PKT"},
-            {"code": "P065", "name": "SALT IODIZED 1KG X 20 PKT CTN"},
-            {"code": "P066", "name": "SUGAR FINE WHITE 50KG BAG"},
-            {"code": "P067", "name": "COCONUT MILK POWDER 1KG PKT"},
-            {"code": "P068", "name": "TAMARIND ASAM JAWA 10KG CTN"},
-            {"code": "P069", "name": "TAMARIND SEEDLESS 1KG X 10 PKT"},
-            {"code": "P070", "name": "CASHEW NUT WHOLE 1KG PKT"},
-            {"code": "P071", "name": "CASHEW NUT SPLIT 1KG PKT"},
-            {"code": "P072", "name": "RAISIN BLACK / SULTANA 1KG PKT"},
-            {"code": "P073", "name": "RAISIN YELLOW 1KG PKT"},
-            {"code": "S074", "name": "POPPY SEED / KAS KAS 1KG PKT"},
-            {"code": "S075", "name": "SESAME SEED WHITE 1KG PKT"},
-            {"code": "S076", "name": "SESAME SEED BLACK 1KG PKT"},
-            {"code": "P077", "name": "GINGER FRESH 10KG BOX"},
-            {"code": "P078", "name": "POTATOES EGYPT / PAKISTAN 10KG BAG"},
-            {"code": "P079", "name": "RED BEANS / KACANG MERAH 15KG BAG"},
-            {"code": "P080", "name": "SOYABEAN 15KG BAG"},
-            {"code": "P081", "name": "KACANG TANAH / PEANUTS 15KG BAG"},
-            {"code": "S082", "name": "CHILLI POWDER EXTRA HOT 1KG PKT"},
-            {"code": "S083", "name": "TURMERIC WHOLE / KUNYIT HIDUP 1KG PKT"},
-            {"code": "S084", "name": "GARLIC POWDER 1KG PKT"},
-            {"code": "S085", "name": "GINGER POWDER 1KG PKT"},
-            {"code": "P086", "name": "RICE FLOUR / TEPUNG BERAS 500G X 20 PKT"},
-            {"code": "P087", "name": "GLUTINOUS RICE FLOUR 500G X 20 PKT"},
-            {"code": "P088", "name": "CORN FLOUR 1KG X 10 PKT"},
-            {"code": "P089", "name": "TAPIOCA STARCH 1KG X 10 PKT"},
-            {"code": "P090", "name": "WHEAT FLOUR TEPUNG GANDUM 1KG X 10 PKT"},
-            {"code": "P091", "name": "SEMOLINA / SOOJI TEPUNG SUJI 1KG PKT"},
-            {"code": "P092", "name": "IDLI RICE 25KG BAG"},
-            {"code": "P093", "name": "PONNI RICE BOILED 25KG BAG"},
-            {"code": "P094", "name": "SONA MASOORI RICE 25KG BAG"},
-            {"code": "P095", "name": "JASMINE FRAGRANT RICE 10KG BAG"},
-            {"code": "P096", "name": "THAI PARBOILED RICE 50KG BAG"},
-            {"code": "P097", "name": "VERMICELLI / SEVAI 400G X 20 PKT"},
-            {"code": "P098", "name": "MACARONI PASTA 5KG BAG"},
-            {"code": "P099", "name": "SPAGHETTI PASTA 5KG BAG"},
-            {"code": "S100", "name": "CURRY LEAVES DRIED 100G PKT"}
+            { code: 'P001', name: 'DAILY PAPPADAM / APPALAM 100G X 200 PKT', size: '' },
+            { code: 'P002', name: 'SSQ URAD DHAL 25KG BAG', size: '' },
+            { code: 'P003', name: 'FAQ URAD GOTA 15 KG BAG', size: '' },
+            { code: 'P004', name: 'GHEE 16 X 1LTR CTN', size: '' },
+            { code: 'P005', name: 'VEGETABLE COOKING OIL 5 KG X 4', size: '' },
+            { code: 'P006', name: 'VANASPATI / VEGETABLE GHEE 16KG TIN', size: '' },
+            { code: 'P007', name: 'EURO DHAL / AUSTRALIA DHAL 10KG BAG', size: '' },
+            { code: 'P008', name: 'TEPUNG ATTA FLOUR 5G PKT', size: '' },
+            { code: 'P009', name: 'MARJERIN 1KG X 12', size: '' },
+            { code: 'P010', name: 'DAILY PAPPADAM 100G PKT', size: '' },
+            { code: 'P011', name: 'BUSH COLOUR ORANGE RED 100G X 120 TIN', size: '' },
+            { code: 'P012', name: 'GREEN CARDAMOM 1KG PKT', size: '' },
+            { code: 'P013', name: 'GRAM DHAL / POTTUKADALAI 15KG BAG', size: '' },
+            { code: 'P014', name: 'BRU COFFEE 500G PKT', size: '' },
+            { code: 'P015', name: 'DRIED CHILLIES / CILI KERING 10KG BAG', size: '' },
+            { code: 'P016', name: 'ESHAN BIHUN 3KG PKT', size: '' },
+            { code: 'P017', name: 'WHITE RICE NASI KANDAR 50KG BAG', size: '' },
+            { code: 'P018', name: 'MELAVI DAL MALAWI TOOR DAL 25KG', size: '' },
+            { code: 'P019', name: 'TEA OOTY POWDER 10KG BOX', size: '' },
+            { code: 'P020', name: 'DRIED CHILLI / CILI KERING 3.5KG BAG', size: '' },
+            { code: 'P021', name: 'KARA SANTAN KOTAK 1000ML X12', size: '' },
+            { code: 'P022', name: 'FRAGRANT RICE 24.5+ KG BAG', size: '' },
+            { code: 'P023', name: 'GREEN CARDAMOM 25KG BAG', size: '' },
+            { code: 'P024', name: 'KACHANG TANAH / GROUND NUT 25KG BAG', size: '' },
+            { code: 'P025', name: 'GRAM DHAL / POTTUAKADALAI 1KG PACK', size: '' },
+            { code: 'P026', name: 'NESCAFEE CLASSIC 12 X 500G PACK', size: '' },
+            { code: 'P027', name: 'ATTA FLOUR (5KG X 4) 20KG BAG', size: '' },
+            { code: 'P028', name: 'SUNFLOWER OIL 5KG X4 CTN', size: '' },
+            { code: 'P029', name: 'ONION INDIA / BAWANG BESAR INDIA 8.8+KG', size: '' },
+            { code: 'P030', name: 'MASOOR DHAL 15KG BAG', size: '' },
+            { code: 'P031', name: 'MUNG DHAL 15KG BAG', size: '' },
+            { code: 'P032', name: 'BLACK PEPPER SEED 1KG', size: '' },
+            { code: 'P033', name: 'MUSTARD SEED /BIJI SAWI 1KG', size: '' },
+            { code: 'P034', name: 'FENUGREEK SEED / BIJI HALBA 1 KG', size: '' },
+            { code: 'P035', name: 'CUMIN SEED / JINTAN PUTIH 1KG', size: '' },
+            { code: 'P036', name: 'FENNEL SEED / JINTAN MANIS 1KG', size: '' },
+            { code: 'P037', name: 'CORIANDER SEED / KETUMBAR 1KG', size: '' },
+            { code: 'P038', name: 'DRIED CHILLI / CILI KERING 1KG', size: '' },
+            { code: 'P039', name: 'CINNAMON / KAYU MANIS 1KG', size: '' },
+            { code: 'P040', name: 'CLOVE / BUNGA CENGKIH 1KG', size: '' },
+            { code: 'P041', name: 'STAR ANISE / BUNGA LAWANG 1KG', size: '' },
+            { code: 'P042', name: 'BLACK CHICK PEAS 5KG BAG', size: '' },
+            { code: 'P043', name: 'VEGETABLE COOKING OIL (1KG X 12)', size: '' },
+            { code: 'P044', name: 'VEGETABLE COOKING OIL (2KG X6)', size: '' },
+            { code: 'P045', name: 'ONION INDIA BIG 8KG BAG', size: '' },
+            { code: 'P046', name: 'GOLEDN DATES DEGLET NOUR 400G X12 CTN', size: '' },
+            { code: 'P047', name: 'PAKISTAN ONION 8.5KG+/- BAG', size: '' },
+            { code: 'P048', name: 'CORIANDER SEED 25KG BAG', size: '' },
+            { code: 'P049', name: 'CUMIN SEED / JINTAN PUTIH 25KG BAG', size: '' },
+            { code: 'P050', name: 'BLACK URID CHIKKI 15KG BAG', size: '' },
+            { code: 'P051', name: 'SUNFLOWER OIL 1LTR X 12 CTN', size: '' },
+            { code: 'P052', name: 'SUNFLOWER OIL 2LTR X 6 CTN', size: '' },
+            { code: 'P053', name: 'BLACK CHICKPEAS 25KG BAG', size: '' },
+            { code: 'P054', name: 'GROUND NUT / KACANG TANAH 5KG PKT', size: '' },
+            { code: 'P055', name: 'FAQ URID GOTA 5KG PACK', size: '' },
+            { code: 'P056', name: 'CHILLI POWDER 250G', size: '' },
+            { code: 'P057', name: 'CHILLI POWDER 1KG', size: '' },
+            { code: 'P058', name: 'TURMERIC POWDER 250G', size: '' },
+            { code: 'P059', name: 'TURMERIC POWDER 1KG', size: '' },
+            { code: 'P060', name: 'FISH CURRY POWDER 250G', size: '' },
+            { code: 'P061', name: 'FISH CURRY POWDER 1KG', size: '' },
+            { code: 'P062', name: 'MEAT CURRY POWDER 250G', size: '' },
+            { code: 'P063', name: 'MEAT CURRY POWDER 1KG', size: '' },
+            { code: 'P064', name: 'KURMA CURRY MIX POWDER 250G', size: '' },
+            { code: 'P065', name: 'KURMA CURRY MIX POWDER 1KG', size: '' },
+            { code: 'P066', name: 'CORIANDER POWDER 250G', size: '' },
+            { code: 'P067', name: 'CORIANDER POWDER 1KG', size: '' },
+            { code: 'P068', name: 'CUMIN POWDER 250G', size: '' },
+            { code: 'P069', name: 'CUMIN POWDER 1KG', size: '' },
+            { code: 'P070', name: 'FENNEL POWDER 250G', size: '' },
+            { code: 'P071', name: 'FENNEL POWDER 1KG', size: '' },
+            { code: 'P072', name: 'GARAM MASALA MIX 70G', size: '' },
+            { code: 'P073', name: 'SAMBAR MIX 250G', size: '' },
+            { code: 'P074', name: 'RASAM MIX POWDER 125G', size: '' },
+            { code: 'P075', name: 'KAS-KAS MIX 250G', size: '' },
+            { code: 'P076', name: 'BLACK PEPPER POWDER 250G', size: '' },
+            { code: 'P077', name: 'RAVA THOSAI MIX 450G', size: '' },
+            { code: 'P078', name: 'VEGETABLE COOKING OIL 17KG JERRY CAN', size: '' },
+            { code: 'P079', name: 'SQ URAD DAL 5KG PACK', size: '' },
+            { code: 'P080', name: 'CHILLI FLAKES 1KG PACK', size: '' },
+            { code: 'P081', name: 'BLACK PEPPER POWDER 500G', size: '' },
+            { code: 'P082', name: 'FREID ONION / BAWANG GORENG 500G PACK', size: '' },
+            { code: 'P083', name: 'POTATO/ UBI PAK 5.8+KG PACK', size: '' },
+            { code: 'P084', name: 'WHITE CHANA DAL 15KG 9MM', size: '' },
+            { code: 'P085', name: 'WHITE CHANA DAL 5KG PACK', size: '' },
+            { code: 'P086', name: 'MASOOR DAL 5KG PKT', size: '' },
+            { code: 'P087', name: 'VEGETABLE COOKING OIL (17 X 1KG) CTN', size: '' },
+            { code: 'P088', name: 'SQ URAD DAL 15KG BAG', size: '' },
+            { code: 'P089', name: 'UNI BRIYANI 30KG', size: '' },
+            { code: 'P090', name: 'WHITE CHICKPEAS / KACANG KUDA PUTIH 25KG', size: '' },
+            { code: 'P091', name: 'CHANA DALL / KADALAPARUPPU 25KG BAG', size: '' },
+            { code: 'P092', name: 'FENNEL SEED 25KG BAG', size: '' },
+            { code: 'P093', name: 'FENUGREEK / BIJI HALBA 25KG BAG', size: '' },
+            { code: 'P094', name: 'CHANA DAL / KADALAPARUPPU 5KG', size: '' },
+            { code: 'P095', name: 'CHANA DAL / KADALAPRUPPU 1KG PKT', size: '' },
+            { code: 'P096', name: 'WHITE CHICKPEAS / KACANG KUDA PUTIH 5KG P', size: '' },
+            { code: 'P097', name: 'WHITE CHICKPEAS 1KG PKT', size: '' },
+            { code: 'P098', name: 'MEENACHI LIME PICKLES 12 X 350G CT', size: '' },
+            { code: 'P099', name: 'MUNG DAL 5KG PKT', size: '' },
+            { code: 'P100', name: 'CINNMON STICK / KAYU MANIS 10KG CTN', size: '' },
+            { code: 'P101', name: 'BLACK CHICK PEAS 5KG PKT', size: '' },
+            { code: 'P102', name: 'WHITE PEPPER SEED 1KG PKT', size: '' },
+            { code: 'P103', name: 'INDIAN STEAM PUSA 1121 BASMATHI LONG GRA', size: '' },
+            { code: 'P104', name: 'RKG GHEE 1LTR TIN', size: '' },
+            { code: 'P105', name: 'ATTA FLOUR 1KG PKT', size: '' },
+            { code: 'P106', name: 'NESCAFE CLASIC 500G PACK', size: '' },
+            { code: 'P107', name: 'CASHEW NUTS LP 4/4 11.34KG', size: '' },
+            { code: 'P108', name: 'KISMIS 1KG PACK', size: '' },
+            { code: 'P109', name: 'KACANG HIJAU DAL 1KG', size: '' },
+            { code: 'P110', name: 'GREEN CARDAMOM 1KG X 10 PKT BOX', size: '' },
+            { code: 'P111', name: 'GULA MERAH 950GPKT', size: '' },
+            { code: 'P112', name: 'AJINOMOTO 1KG PACK', size: '' },
+            { code: 'P113', name: 'KAS KAS 1KG PACK', size: '' },
+            { code: 'P114', name: 'ESHAN LYCHEE 567G TIN SAMPLE', size: '' },
+            { code: 'P115', name: 'EHSAN SARDINES 425G TIN SAMPLE', size: '' },
+            { code: 'P116', name: 'EHSAN BIHUN 400G PKT SAMPLE', size: '' },
+            { code: 'P117', name: 'EHSAN TEPUNG GANDUM 1KG PKT SAMPLE', size: '' },
+            { code: 'P118', name: 'EHSAN CHOCMALT 1KG PKT SAMPLE', size: '' },
+            { code: 'P119', name: 'SERI RASA MEAT250G PKT SAMPLE', size: '' },
+            { code: 'P120', name: 'SERI RASA FISH CURRY POWDER 250 G PKT', size: '' },
+            { code: 'P121', name: 'SERI RASA CHILL POWDER 125G PKT SAMPLE', size: '' },
+            { code: 'P122', name: 'SERI RASA TURMERIC POWDER 125G PKT SAMPL', size: '' },
+            { code: 'P123', name: 'EHSAN BLENDED GHEE 800G X 12 CTN', size: '' },
+            { code: 'P124', name: 'EHSAN BLENDED GHEE 800G TIN', size: '' },
+            { code: 'P125', name: 'POTATO / UBI 8.8+KG PACK', size: '' },
+            { code: 'P126', name: 'GARAM HALUS PUTIH 5KG PACK', size: '' },
+            { code: 'P127', name: 'ASAM JAWA PENGUIN 5KG PACK', size: '' },
+            { code: 'P128', name: 'BIJI SAGU 1KG', size: '' },
+            { code: 'P129', name: 'VERMICILLI SEMIYAH 200G PACK', size: '' },
+            { code: 'P130', name: 'ESHAN BESRAS PUTIH 10KG PACK', size: '' },
+            { code: 'P131', name: 'AACHI ASAFOETIDA PERUNGAYAM 50GM BOTTLE', size: '' },
+            { code: 'P132', name: 'CASHEWNUT / GAJUS 480G PACK', size: '' },
+            { code: 'P133', name: 'KISMIS HITAM 480G PACK', size: '' },
+            { code: 'P134', name: 'SUJOHON KRIMER MANIS 500G TIN', size: '' },
+            { code: 'P135', name: 'SUJOHON KRIMER SEJAT 390G TIN', size: '' },
+            { code: 'P136', name: 'VEGETABLE COOKING OIL 8LTR JERRY CAN', size: '' },
+            { code: 'P137', name: 'GULA PRAI 1KG PACK', size: '' },
+            { code: 'P138', name: 'GREEN CARDAMOM 500G PACK', size: '' },
+            { code: 'P139', name: 'BERAS PUTIH / WHITE RICE SAMPLE 1KG PACK', size: '' },
+            { code: 'P140', name: 'MARGARINE SAMPLE 1KG PACK', size: '' },
+            { code: 'P141', name: 'MASALA FULL SET SAMPLE', size: '' },
+            { code: 'P142', name: 'ONION INDIA 5KG++ PACK', size: '' },
+            { code: 'P143', name: 'PALM SUGAR / GULA MELAKA 10KG CTN', size: '' },
+            { code: 'P144', name: 'SUGAR / GULA 50KG BAG', size: '' },
+            { code: 'P145', name: 'ESHAN TEPUNG GANDUNG 850G X 12 CTN', size: '' },
+            { code: 'P146', name: 'ESHAN LYCHEE TIN 567G X 24 CTN', size: '' },
+            { code: 'P147', name: 'ESHAN BIHUN 400G X 10 CTN', size: '' },
+            { code: 'P148', name: 'ESHAN SARDINE 425G X 24 CTN', size: '' },
+            { code: 'P149', name: 'FRAGRANT RICE 10KG', size: '' },
+            { code: 'P150', name: 'BERAS HANCUR 25KG BAG', size: '' },
+            { code: 'P151', name: 'BRU COFFEE 200G PACK', size: '' },
+            { code: 'P152', name: 'TURMERIC PURE POWDER 5KG PACK', size: '' },
+            { code: 'P153', name: 'CHILLI POWDER 125G', size: '' },
+            { code: 'P154', name: 'TURMERIC POWDER 125G', size: '' },
+            { code: 'P155', name: 'MAGGI 2-MINN CURRY 12(5X79G)', size: '' },
+            { code: 'P156', name: 'MILO ACTIVE 6 X 3.2KG', size: '' },
+            { code: 'P157', name: 'MILO ACTIVE 3.2KG PACK', size: '' },
+            { code: 'P158', name: 'CASHEW WS 2/2 SPILIT 11.34 BAGS', size: '' },
+            { code: 'P159', name: 'BLACK PEPPER SEED 25KG BAG', size: '' },
+            { code: 'P160', name: 'AGRO PURE GHEE 10LTR', size: '' },
+            { code: 'P161', name: 'KHASMIRI CHILLI POWDER 100G PACK', size: '' },
+            { code: 'P162', name: 'PUSA FINEST BASMATHI 1121 5KG', size: '' },
+            { code: 'P163', name: 'BRU INSTANT COFFEE (500G X 16 ) CTN', size: '' },
+            { code: 'P164', name: 'KALPASI BUNGA BATU 5KG BAG', size: '' },
+            { code: 'P165', name: 'KALPASI BUNGA BATU 500G PACK', size: '' },
+            { code: 'P166', name: 'DUTCH LADY FULL CREAM MILK 1LTR X 12', size: '' },
+            { code: 'P167', name: 'MILK POWDER 25KG BAG', size: '' },
+            { code: 'P168', name: 'RAVA / SUJI 10KG BAG', size: '' },
+            { code: 'P169', name: 'ALMOND 1KG', size: '' },
+            { code: 'P170', name: 'TEA POWDER 200G', size: '' },
+            { code: 'P171', name: 'GOLD COIN 2.5KG X 8 POUCH', size: '' },
+            { code: 'P172', name: 'DAIRY CHAMP SEJAT 48 X 390G', size: '' },
+            { code: 'P173', name: 'TRANSPORT CHARGES LALAMOVE', size: '' },
+            { code: 'P174', name: 'INDIAN PONNI RICE 26KG BAG', size: '' },
+            { code: 'P175', name: 'SYG PERUNGAYAM (ASAFOERIDA ) POWDER 50G', size: '' },
+            { code: 'P176', name: 'SQ URAD DAL 25KG BAG', size: '' },
+            { code: 'P177', name: 'PAPPDAM PETAK / KEREPEK PAPPADAM 2KG BAG', size: '' },
+            { code: 'P178', name: 'MY MERAK COOKING OIL 17KG JERRY CAN', size: '' },
+            { code: 'P179', name: 'BAY LEAF BRIYANI 1KG', size: '' },
+            { code: 'P180', name: 'SALT 20KG', size: '' },
+            { code: 'P181', name: 'SALT CRYSTAL 50KG', size: '' },
+            { code: 'P182', name: 'VEGETABLE COOKING OIL 17 LTR JC', size: '' },
+            { code: 'P183', name: 'CUMIN SEED INDIA 30KG BAG', size: '' },
+            { code: 'P184', name: 'BERAS BASMATHI BIRI BIRI 10KG BAG', size: '' },
+            { code: 'P185', name: 'BERAS PUTIH IMPORT 10KG BAG', size: '' },
+            { code: 'P186', name: 'ONION INDIA BIG 5.8KG BAG', size: '' },
+            { code: 'P187', name: 'SAKTHI CHILLI POWDER 500G', size: '' },
+            { code: 'P188', name: 'SAKTHI CORIANDER POWDER 500G', size: '' },
+            { code: 'P189', name: 'SAKTHI SAMBAR POWDER 500G', size: '' },
+            { code: 'P190', name: 'SAKTHI MUTTON POWDER 500G', size: '' },
+            { code: 'P191', name: 'SAKTHI FISH CURRY POWDER 500G', size: '' },
+            { code: 'P192', name: 'SAKTHI CHAT MASALA POWDER 50G', size: '' },
+            { code: 'P193', name: '3 ROSE TEA 500G', size: '' },
+            { code: 'P194', name: 'SUNFLOWER OIL 17KG', size: '' },
         ];
 
         let orderList = [];
 
-        const salesAgentInput = document.getElementById('salesAgent');
-        const agentList = document.getElementById('agentList');
-        const storeNameInput = document.getElementById('storeName');
-        const storeLocationInput = document.getElementById('storeLocation');
-        const storeList = document.getElementById('storeList');
         const productSearch = document.getElementById('productSearch');
         const autocompleteList = document.getElementById('autocompleteList');
         const orderItemsContainer = document.getElementById('orderItems');
@@ -691,70 +727,32 @@
         const totalItems = document.getElementById('totalItems');
         const footerSection = document.getElementById('footerSection');
 
-        salesAgentInput.addEventListener('focus', () => renderAgentList(salesAgentInput.value));
-        salesAgentInput.addEventListener('input', (e) => renderAgentList(e.target.value));
-
-        function renderAgentList(search = '') {
-            const query = search.toLowerCase().trim();
-            const filtered = salesAgentsData.filter(agent => agent.toLowerCase().includes(query));
-            
-            if (filtered.length > 0) {
-                agentList.innerHTML = filtered.map(agent => `
-                    <div class="autocomplete-item" onclick="selectAgent('${agent}')">
-                        <div class="autocomplete-item-name">👤 ${agent}</div>
-                    </div>
-                `).join('');
-                agentList.classList.add('show');
-            } else {
-                agentList.classList.remove('show');
-            }
-        }
-
-        function selectAgent(name) {
-            salesAgentInput.value = name;
-            agentList.classList.remove('show');
-        }
-
-        storeNameInput.addEventListener('focus', () => renderStoreList(storeNameInput.value));
-        storeNameInput.addEventListener('input', (e) => renderStoreList(e.target.value));
-
-        function renderStoreList(search = '') {
-            const query = search.toLowerCase().trim();
-            const filtered = storesData.filter(store => store.toLowerCase().includes(query)).slice(0, 10);
-            
-            if (filtered.length > 0) {
-                storeList.innerHTML = filtered.map(store => `
-                    <div class="autocomplete-item" onclick="selectStore('${store.replace(/'/g, "\\'")}')">
-                        <div class="autocomplete-item-name">🏪 ${store}</div>
-                    </div>
-                `).join('');
-                storeList.classList.add('show');
-            } else {
-                storeList.classList.remove('show');
-            }
-        }
-
-        function selectStore(name) {
-            storeNameInput.value = name;
-            storeList.classList.remove('show');
-        }
-
-        productSearch.addEventListener('focus', () => handleProductSearch({ target: productSearch }));
         productSearch.addEventListener('input', handleProductSearch);
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.autocomplete-container')) {
+                autocompleteList.classList.remove('show');
+            }
+        });
 
         function handleProductSearch(e) {
             const search = e.target.value.toLowerCase().trim();
 
+            if (search.length === 0) {
+                autocompleteList.classList.remove('show');
+                return;
+            }
+
             const filtered = productsData.filter(product =>
                 product.name.toLowerCase().includes(search) ||
                 product.code.toLowerCase().includes(search)
-            ).slice(0, 10);
+            ).slice(0, 8);
 
             if (filtered.length > 0) {
                 autocompleteList.innerHTML = filtered.map(product => `
                     <div class="autocomplete-item" onclick="selectProduct('${product.code}')">
-                        <span class="autocomplete-item-code">${product.code}</span>
+                        <div class="autocomplete-item-code">📦 ${product.code}</div>
                         <div class="autocomplete-item-name">${product.name}</div>
+                        ${product.size ? `<div class="autocomplete-item-meta">${product.size}</div>` : ''}
                     </div>
                 `).join('');
                 autocompleteList.classList.add('show');
@@ -771,26 +769,18 @@
             }
         }
 
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.autocomplete-container')) {
-                agentList.classList.remove('show');
-                storeList.classList.remove('show');
-                autocompleteList.classList.remove('show');
-            }
-        });
-
         function addProductToOrder() {
-            const salesAgent = salesAgentInput.value.trim();
-            const storeName = storeNameInput.value.trim();
-            const searchText = productSearch.value.trim();
+            const salesAgent = document.getElementById('salesAgent').value.trim();
+            const storeName = document.getElementById('storeName').value.trim();
+            const searchText = document.getElementById('productSearch').value.trim();
             const quantity = parseInt(document.getElementById('quantity').value) || 1;
 
             if (!salesAgent) {
-                alert('❌ Please enter or select a Sales Agent name');
+                alert('❌ Please enter Sales Agent name');
                 return;
             }
             if (!storeName) {
-                alert('❌ Please enter or select a Store name');
+                alert('❌ Please enter Store name');
                 return;
             }
             if (!searchText) {
@@ -799,7 +789,7 @@
             }
 
             const product = productsData.find(p => 
-                searchText.startsWith(p.code) || searchText.toLowerCase().includes(p.name.toLowerCase())
+                searchText.includes(p.code) || searchText.toLowerCase().includes(p.name.toLowerCase())
             );
 
             if (!product) {
@@ -830,9 +820,9 @@
             if (orderList.length === 0) {
                 orderItemsContainer.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-state-icon">🛒</div>
-                        <p style="font-weight: 600;">No products added yet</p>
-                        <p style="font-size: 12px; margin-top: 4px;">Search product code or name on the left</p>
+                        <div class="empty-state-icon">📦</div>
+                        <p>No products added yet</p>
+                        <p style="font-size: 12px;">Add products from the left</p>
                     </div>
                 `;
                 footerSection.style.display = 'none';
@@ -846,14 +836,16 @@
                     <div class="order-item">
                         <div class="order-item-header">
                             <div>
-                                <span class="order-item-code">${item.code}</span>
+                                <div class="order-item-code">${item.code}</div>
                                 <div class="order-item-name">${item.name}</div>
                             </div>
                             <button class="order-item-remove" onclick="removeProduct(${index})">Remove</button>
                         </div>
-                        <div style="display:flex; align-items:center; gap:8px; margin-top: 6px;">
-                            <span style="font-size:12px; font-weight:600; color: var(--text-secondary);">Qty:</span>
-                            <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)" style="width: 70px; padding: 0.3rem 0.5rem; font-size:13px;">
+                        <div class="order-item-details">${item.size ? item.size + ' | ' : ''}Qty: ${item.quantity}</div>
+                        <div class="order-item-qty">
+                            <label style="flex: 1; color: var(--text-secondary); font-size: 13px;">
+                                <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)" style="width: 60px; margin: 0 5px; padding: 0.4rem;">
+                            </label>
                         </div>
                     </div>
                 `;
@@ -887,9 +879,8 @@
         }
 
         function sendToWhatsApp() {
-            const salesAgent = salesAgentInput.value.trim();
-            const storeName = storeNameInput.value.trim();
-            const storeLocation = storeLocationInput.value.trim();
+            const salesAgent = document.getElementById('salesAgent').value.trim();
+            const storeName = document.getElementById('storeName').value.trim();
 
             if (!salesAgent || !storeName || orderList.length === 0) {
                 alert('❌ Please fill all required fields and add products');
@@ -900,9 +891,6 @@
             let text = `📦 *NEW ORDER - DAILY FOOD PRODUCTS*\n\n`;
             text += `👤 *Sales Agent:* ${salesAgent}\n`;
             text += `🏪 *Store Name:* ${storeName}\n`;
-            if (storeLocation) {
-                text += `📍 *Location/Branch:* ${storeLocation}\n`;
-            }
             text += `📅 *Date:* ${now.toLocaleDateString('en-MY')}\n`;
             text += `🕐 *Time:* ${now.toLocaleTimeString('en-MY')}\n\n`;
             text += `${'═'.repeat(30)}\n`;
@@ -910,13 +898,17 @@
             text += `${'═'.repeat(30)}\n`;
 
             orderList.forEach((item, idx) => {
-                text += `${idx + 1}. *[${item.code}]* ${item.name} | Qty: *${item.quantity}*\n`;
+                text += `${idx + 1}. *${item.code}* - ${item.name} Qty: ${item.quantity}\n`;
             });
 
             text += `${'═'.repeat(30)}\n`;
-            text += `📦 *Total Unique Items:* ${orderList.length}\n`;
-            text += `🔢 *Total Quantity:* ${orderList.reduce((sum, item) => sum + item.quantity, 0)}\n`;
+            text += `📱 Total Products: ${orderList.length}\n`;
+            text += `📦 Total Quantity: ${orderList.reduce((sum, item) => sum + item.quantity, 0)}\n`;
             text += `${'═'.repeat(30)}\n\n`;
+            text += `💳 *BANK DETAILS:*\n`;
+            text += `MAYBANK\n`;
+            text += `DAILY FOOD PRODUCTS SDN BHD\n`;
+            text += `512400561269\n\n`;
             text += `☎️ *Company Contact:*\n`;
             text += `014 374 2524 / 03 4051 2524\n`;
             text += `dailyfoods.my@gmail.com`;
@@ -926,9 +918,8 @@
         }
 
         function copyToClipboard() {
-            const salesAgent = salesAgentInput.value.trim();
-            const storeName = storeNameInput.value.trim();
-            const storeLocation = storeLocationInput.value.trim();
+            const salesAgent = document.getElementById('salesAgent').value.trim();
+            const storeName = document.getElementById('storeName').value.trim();
 
             if (!salesAgent || !storeName || orderList.length === 0) {
                 alert('❌ Please fill all required fields and add products');
@@ -939,9 +930,6 @@
             let text = `📦 NEW ORDER - DAILY FOOD PRODUCTS\n\n`;
             text += `👤 Sales Agent: ${salesAgent}\n`;
             text += `🏪 Store Name: ${storeName}\n`;
-            if (storeLocation) {
-                text += `📍 Location/Branch: ${storeLocation}\n`;
-            }
             text += `📅 Date: ${now.toLocaleDateString('en-MY')}\n`;
             text += `🕐 Time: ${now.toLocaleTimeString('en-MY')}\n\n`;
             text += `${'═'.repeat(30)}\n`;
@@ -949,16 +937,20 @@
             text += `${'═'.repeat(30)}\n`;
 
             orderList.forEach((item, idx) => {
-                text += `${idx + 1}. [${item.code}] ${item.name} | Qty: ${item.quantity}\n`;
+                text += `${idx + 1}. ${item.code} - ${item.name} Qty: ${item.quantity}\n`;
             });
 
             text += `${'═'.repeat(30)}\n`;
-            text += `Total Unique Items: ${orderList.length}\n`;
+            text += `Total Products: ${orderList.length}\n`;
             text += `Total Quantity: ${orderList.reduce((sum, item) => sum + item.quantity, 0)}\n`;
-            text += `${'═'.repeat(30)}\n`;
+            text += `${'═'.repeat(30)}\n\n`;
+            text += `BANK DETAILS:\n`;
+            text += `MAYBANK\n`;
+            text += `DAILY FOOD PRODUCTS SDN BHD\n`;
+            text += `512400561269\n`;
 
             navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Order details copied to clipboard!');
+                alert('✅ Order copied to clipboard!');
             });
         }
     </script>
